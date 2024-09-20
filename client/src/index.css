@@ -20,3 +20,19 @@ nav {
   padding: 0.5rem;
   color: cornSilk;
 }
+
+.form {
+  border: 2px solid black;
+  margin-bottom: 50px;
+
+  background-color: bisque;
+}
+
+.form button {
+  background-color: rgb(130, 149, 149);
+  width: 100px;
+}
+
+.form input {
+  padding: 10px;
+}

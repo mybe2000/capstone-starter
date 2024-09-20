@@ -1,8 +1,14 @@
-const Users = ({ users })=> {
+const Users = ({ users }) => {
+  console.log(users);
   return (
-    <h1>Placeholder for Users { users.length }</h1>
-  );
-}
+    <div>
+      <h1>{users.length} Users</h1>
 
+      {users.map((user) => (
+        <div key={user.username}>{user.username} </div>
+      ))}
+    </div>
+  );
+};
 
 export default Users;

@@ -4,16 +4,35 @@ import Users from "./pages/Users";
 import Businesses from "./pages/Businesses";
 import CreateReview from "./pages/CreateReview";
 import Home from "./pages/Home";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+// import axios from "axios";
 
 function App() {
   const [auth, setAuth] = useState({});
-  const [users, setUsers] = useState([]);
+  // const [users, setUsers] = useState([]);
   const [businesses, setBusinesses] = useState([]);
   const [reviews, setReviews] = useState([]);
+
+  const users = [
+    {
+      username: "Moe",
+    },
+    { username: "Jack" },
+  ];
 
   useEffect(() => {
     attemptLoginWithToken();
   }, []);
+
+  // useEffect(() => {
+  //   axios(`${import.meta.env.DATABASE_URL}/api/users`)
+  //     .then((data) => {
+  //       console.log(data);
+  //       setUsers(data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   const attemptLoginWithToken = async () => {
     const token = window.localStorage.getItem("token");
@@ -65,7 +84,7 @@ function App() {
         {auth.id ? (
           <Link to="/createReview">Create Review</Link>
         ) : (
-          <Link to="/">Register/Login</Link>
+          <Link to="/login">Register/Login</Link>
         )}
       </nav>
       {auth.id && <button onClick={logout}>Logout {auth.username}</button>}
@@ -88,6 +107,11 @@ function App() {
         />
         <Route path="/users" element={<Users users={users} />} />
         {!!auth.id && <Route path="/createReview" element={<CreateReview />} />}
+        {/* <Route
+          path="/register"
+          element={<Register auth={auth} />}
+        />
+        <Route path="/login" element={<Login />} /> */}
       </Routes>
     </>
   );
