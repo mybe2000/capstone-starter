@@ -47,6 +47,27 @@ const findUserWithToken = async (token) => {
   return response.rows[0];
 };
 
+// const getUserById = async(id) => {
+
+//   try {
+//     const SQL = `SELECT * FROM users WHERE id=$1`;
+//     const
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
+
+// const getUser = async (token) => {
+//   try {
+//     const existingUser = await findUserWithToken(token);
+//     if (!existingUser) return;
+//     console.log(existingUser);
+//     return existingUser;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
 const fetchUsers = async () => {
   const SQL = `
     SELECT id, username FROM users;
@@ -72,4 +93,10 @@ const authenticate = async ({ username, password }) => {
   return { token };
 };
 
-module.exports = { createUser, findUserWithToken, fetchUsers, authenticate };
+module.exports = {
+  createUser,
+  findUserWithToken,
+  
+  fetchUsers,
+  authenticate,
+};
