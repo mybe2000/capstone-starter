@@ -1,7 +1,7 @@
 import React from "react";
 import AuthForm from "../components/AuthForm/AuthForm";
 
-function Register({ authAction }) {
+function Register({ auth, authAction, logout }) {
   return (
     <div>
       <h2>Register here</h2>

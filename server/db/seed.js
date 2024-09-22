@@ -4,13 +4,20 @@ const { createUser, fetchUsers } = require("./index.js");
 
 const createTables = async () => {
   const SQL = `
-    DROP TABLE IF EXISTS users;
-    CREATE TABLE users(
+    DROP TABLE IF EXISTS users CASCADE;
+    DROP TABLE IF EXISTS businesses;
+
+  CREATE TABLE users(
       id UUID PRIMARY KEY,
       username VARCHAR(20) UNIQUE NOT NULL,
       password VARCHAR(255) NOT NULL
     );
-  `;
+  
+  CREATE TABLE businesses(
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(64) NOT NULL,
+  rating INTEGER CHECK(rating >=1 AND rating <=5)
+  )`;
   await client.query(SQL);
 };
 
