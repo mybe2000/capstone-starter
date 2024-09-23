@@ -96,7 +96,7 @@ const authenticate = async ({ username, password }) => {
 module.exports = {
   createUser,
   findUserWithToken,
-  
+
   fetchUsers,
   authenticate,
 };
