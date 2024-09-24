@@ -1,7 +1,12 @@
 require("dotenv").config();
 const { client } = require("./client");
 
-const { createUser, fetchUsers, createBusiness } = require("./index.js");
+const {
+  createUser,
+  fetchUsers,
+  createBusiness,
+  fetchBusinesses,
+} = require("./index.js");
 
 const createTables = async () => {
   const SQL = `
@@ -16,7 +21,8 @@ const createTables = async () => {
   
   CREATE TABLE businesses(
   id SERIAL PRIMARY KEY,
-  name VARCHAR(64) NOT NULL
+  name VARCHAR(64) NOT NULL,
+  rating INTEGER CHECK(rating >=1 AND rating <=5)
   );`;
   await client.query(SQL);
 };
@@ -34,13 +40,14 @@ const init = async () => {
     createUser({ username: "ethyl", password: "e_pw" }),
     createUser({ username: "curly", password: "c_pw" }),
   ]);
+  console.log("FETCH USER :", await fetchUsers());
 
   const [clothingStore, carshop] = await Promise.all([
-    createBusiness({ name: "clothingStore" }),
-    createBusiness({ name: "carshop" }),
+    createBusiness({ name: "clothingStore", rating: "4" }),
+    createBusiness({ name: "carshop", rating: "3" }),
   ]);
 
-  console.log("FETCH USER :", await fetchUsers());
+  console.log("fetch business", await fetchBusinesses());
   client.end();
 };
 

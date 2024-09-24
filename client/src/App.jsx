@@ -6,6 +6,7 @@ import CreateReview from "./pages/CreateReview";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import axios from "axios";
 
 // const url = import.meta.env.DATABASE_URL;
 
@@ -23,24 +24,36 @@ function App() {
     const getUsers = async () => {
       console.log("getUsers function called");
       try {
-        const response = await fetch("/api/users");
-        const data = await response.json();
-        setUsers(data);
+        // const response = await fetch("/api/users");
+        // const data = await response.json();
+        // setUsers(data);
+        await axios("/api/users")
+          .then((data) => {
+            console.log(data.data);
+            setUsers(data.data);
+          })
+          .catch((err) => console.log(err));
       } catch (error) {
         console.error("Error fetching users:", error);
       }
     };
     getUsers();
-    // axios(`http://localhost:3000/api/users`, {
-    //   headers: {
-    //     "Access-Control-Allow-Origin": "*",
-    //   },
-    // })
-    //   .then((data) => {
-    //     console.log("API USERS :", data);
-    //     setUsers(data);
-    //   })
-    // .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    const getBusinesses = async () => {
+      try {
+        axios("/api/businesses")
+          .then((data) => {
+            console.log(data.data);
+            setBusinesses(data.data);
+          })
+          .catch((err) => console.log(err));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getBusinesses();
   }, []);
 
   const attemptLoginWithToken = async () => {

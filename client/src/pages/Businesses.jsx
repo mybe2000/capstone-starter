@@ -1,8 +1,14 @@
-const Businesses = ({ businesses })=> {
+const Businesses = ({ businesses }) => {
   return (
-    <h1>Placeholder for Businesses { businesses.length }</h1>
+    <div>
+      <h1>{businesses.length} Businesses</h1>
+      {businesses.map((business) => (
+        <div key={business.name}>
+          {business.name}, rating: {business.rating}
+        </div>
+      ))}
+    </div>
   );
-}
-
+};
 
 export default Businesses;
