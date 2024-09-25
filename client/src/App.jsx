@@ -7,6 +7,8 @@ import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import axios from "axios";
+import UserCard from "./pages/UserCard";
+import SingleUser from "./pages/SingleUser";
 
 // const url = import.meta.env.DATABASE_URL;
 
@@ -128,6 +130,7 @@ function App() {
           element={<Businesses businesses={businesses} />}
         />
         <Route path="/users" element={<Users users={users} />} />
+        <Route path="/user/:id" element={<SingleUser />} />
         {!!auth.id && <Route path="/createReview" element={<CreateReview />} />}
         <Route
           path="/register"

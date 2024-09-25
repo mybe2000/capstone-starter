@@ -9,7 +9,7 @@ if (JWT === "shhh") {
 }
 
 const createUser = async ({ username, password }) => {
-  if (!username || !password) {
+  if (!username && !password) {
     const error = Error("username and password required!");
     error.status = 401;
     throw error;
@@ -23,6 +23,16 @@ const createUser = async ({ username, password }) => {
     await bcrypt.hash(password, 5),
   ]);
   return response.rows[0];
+};
+
+const getUserById = async (id) => {
+  try {
+    const SQL = `SELECT id, username FROM users WHERE id=$1`;
+    const user = await client.query(SQL, [id]);
+    return user.rows[0];
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const findUserWithToken = async (token) => {
@@ -74,6 +84,7 @@ const authenticate = async ({ username, password }) => {
 
 module.exports = {
   createUser,
+  getUserById,
   findUserWithToken,
   fetchUsers,
   authenticate,

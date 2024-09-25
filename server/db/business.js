@@ -1,7 +1,7 @@
 const { client } = require("./client");
 
 const createBusiness = async ({ name, rating }) => {
-  if (!name || !rating) {
+  if (!name && !rating) {
     const error = Error("business name and rating required!");
     error.status = 401;
     throw error;
