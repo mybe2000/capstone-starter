@@ -19,24 +19,23 @@ const createTables = async () => {
   CREATE TABLE users(
       id UUID PRIMARY KEY,
       username VARCHAR(20) UNIQUE NOT NULL,
-      password VARCHAR(255) NOT NULL,
-      reviews VARCHAR(1022)
+      password VARCHAR(255) NOT NULL
     );
   
   CREATE TABLE businesses(
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(64) NOT NULL,
-  rating INTEGER CHECK(rating >=1 AND rating <=5)
+  id UUID PRIMARY KEY,
+  businessname VARCHAR(64) NOT NULL
   );
 
   CREATE TABLE reviews(
   id UUID PRIMARY KEY,
   userid UUID NOT NULL,
-  name VARCHAR(64) NOT NULL,
+  businessid UUID,
   comments VARCHAR(1022),
   rating INTEGER CHECK(rating >=1 AND rating <=5)
   )
   `;
+
   await client.query(SQL);
 };
 
@@ -56,27 +55,38 @@ const init = async () => {
   const users = await fetchUsers();
   console.log("FETCH USER :", users);
 
-  const [clothingStore, carshop] = await Promise.all([
-    createBusiness({ name: "clothingStore", rating: "4" }),
-    createBusiness({ name: "carshop", rating: "3" }),
+  const [] = await Promise.all([
+    createBusiness({ businessname: "Tailor Tom" }),
+    createBusiness({ businessname: "clothingStore" }),
+    createBusiness({ businessname: "carshop" }),
   ]);
-  console.log("fetch business", await fetchBusinesses());
+  const businesses = await fetchBusinesses();
+  console.log("fetch businesses", businesses);
 
-  const [tailorTom, papaPizza] = await Promise.all([
+  const [] = await Promise.all([
     createReview({
       userId: users[0].id,
-      name: "tailorTom",
+      businessId: businesses[0].id,
       comments: "Hemmed my pants perfectly",
       rating: "5",
     }),
     createReview({
       userId: users[1].id,
-      name: "papaPizza",
-      comments: "not enough cheese on my pie",
+      businessId: businesses[1].id,
+      // name: "clothingStore",
+      comments: "Have a good selection",
+      rating: "4",
+    }),
+    createReview({
+      userId: users[1].id,
+      businessId: businesses[2].id,
+
+      comments: "very expensive",
       rating: "3",
     }),
   ]);
-  console.log(await fetchReviews());
+  const reviews = await fetchReviews();
+  console.log(reviews);
 
   client.end();
 };

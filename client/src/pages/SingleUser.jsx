@@ -9,28 +9,48 @@ function SingleUser() {
   const [reviews, setReviews] = useState(null);
 
   useEffect(() => {
-    axios(`/api/users/${id}`)
-      .then((data) => {
-        setUser(data.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+    const getUserById = async () => {
+      try {
+        await axios(`/api/users/${id}`)
+          .then((data) => {
+            console.log(data.data);
+            setUser(data.data);
+          })
+          .catch((err) => console.log(err));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUserById();
+  }, [id]);
 
   useEffect(() => {
-    axios(`/api/reviews/${id}`)
-      .then((data) => {
-        setReviews(data.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+    const getReviews = async () => {
+      try {
+        await axios(`/api/reviews/${id}`)
+          .then((data) => {
+            console.log(data.data);
+            setReviews(data.data);
+          })
+          .catch((err) => console.log(err));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getReviews();
+  }, [id]);
 
   return (
     <div>
       <h3>Username: </h3>
-      {user?.username}
-      <h3>Reviews: </h3>
+      <h4>{user?.username}</h4>
+      <h3>Reviews for: </h3>
       {reviews?.map((review) => (
-        <div key={review.id}>{review.comments}</div>
+        <div key={review?.id} className="reviews">
+          <Link to={`/user/${user?.id}`}></Link>
+          <p> Rating: {review?.rating}</p>
+          <p>{review?.comments}</p>
+        </div>
       ))}
     </div>
   );

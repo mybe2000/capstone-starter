@@ -1,22 +1,22 @@
 const { client } = require("./client");
 const uuid = require("uuid");
 
-const createReview = async ({ userId, name, comments, rating }) => {
-  if (!userId || !name || !rating) {
-    const error = Error("user id, name and rating required!");
+const createReview = async ({ userId, businessId, comments, rating }) => {
+  if (!userId || !rating) {
+    const error = Error("user id, business and rating required!");
     error.status = 401;
     throw error;
   }
   try {
-    const SQL = `INSERT INTO reviews(id, userId, name, comments, rating) VALUES($1, $2, $3, $4, $5) RETURNING *`;
-    const response = await client.query(SQL, [
+    const SQL = `INSERT INTO reviews(id, userId, businessId, comments, rating) VALUES($1, $2, $3, $4, $5) RETURNING *`;
+    const review = await client.query(SQL, [
       uuid.v4(),
       userId,
-      name,
+      businessId,
       comments,
       rating,
     ]);
-    return response.rows[0];
+    return review.rows[0];
   } catch (error) {
     console.log(error);
   }
@@ -42,4 +42,19 @@ const fetchReviewsByUserId = async (userId) => {
   }
 };
 
-module.exports = { createReview, fetchReviews, fetchReviewsByUserId };
+const fetchReviewsByBusinessId = async (businessId) => {
+  try {
+    const SQL = `SELECT * FROM reviews WHERE businessId=$1`;
+    const response = await client.query(SQL, [businessId]);
+    return response.rows;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = {
+  createReview,
+  fetchReviews,
+  fetchReviewsByUserId,
+  fetchReviewsByBusinessId,
+};

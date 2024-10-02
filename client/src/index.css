@@ -36,3 +36,19 @@ nav {
 .form input {
   padding: 10px;
 }
+
+.reviews {
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+}
+
+.business {
+  border: 2px solid black;
+  margin: 20px;
+  padding: 10px;
+}
+
+.businessReviews {
+  background-color: rgb(129, 179, 179);
+}

@@ -1,12 +1,28 @@
-const Businesses = ({ businesses }) => {
+import { useState } from "react";
+import BusinessCardList from "./BusinessCardList";
+
+const Businesses = ({ businesses, reviews }) => {
+  console.log(businesses);
+  console.log(reviews);
+  const [foundBusiness, setFoundBusiness] = useState(businesses);
+
+  const handleSearch = (e) => {
+    const searchResult = businesses.filter((business) =>
+      business.businessname.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+    setFoundBusiness(searchResult);
+  };
+
   return (
     <div>
       <h1>{businesses.length} Businesses</h1>
-      {businesses.map((business) => (
-        <div key={business.name}>
-          {business.name}, rating: {business.rating}
-        </div>
-      ))}
+      <p>
+        Search for a business:
+        <input type="text" name="business" onChange={handleSearch} />
+      </p>
+
+      <p>Click on a business to see their reviews</p>
+      <BusinessCardList businesses={foundBusiness} />
     </div>
   );
 };

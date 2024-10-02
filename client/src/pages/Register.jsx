@@ -5,7 +5,12 @@ function Register({ auth, authAction, logout }) {
   return (
     <div>
       <h2>Register here</h2>
-      <AuthForm authAction={authAction} mode="register" />
+      {!auth.id && <AuthForm authAction={authAction} mode="register" />}
+      {auth.id && (
+        <div>
+          <p>Successfully registered!</p>
+        </div>
+      )}
     </div>
   );
 }

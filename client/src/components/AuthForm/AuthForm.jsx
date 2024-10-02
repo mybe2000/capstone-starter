@@ -9,7 +9,6 @@ const AuthForm = ({ authAction, mode = "login" }) => {
     ev.preventDefault();
     try {
       await authAction({ username, password }, mode);
-      console.log(await authAction({ username, password }, mode));
     } catch (ex) {
       setError(ex.error);
     }

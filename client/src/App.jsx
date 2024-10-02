@@ -7,10 +7,8 @@ import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import axios from "axios";
-import UserCard from "./pages/UserCard";
 import SingleUser from "./pages/SingleUser";
-
-// const url = import.meta.env.DATABASE_URL;
+import SingleBusiness from "./pages/SingleBusiness";
 
 function App() {
   const [auth, setAuth] = useState({});
@@ -44,8 +42,9 @@ function App() {
 
   useEffect(() => {
     const getBusinesses = async () => {
+      console.log("getBusiness function called");
       try {
-        axios("/api/businesses")
+        await axios("/api/businesses")
           .then((data) => {
             console.log(data.data);
             setBusinesses(data.data);
@@ -56,6 +55,22 @@ function App() {
       }
     };
     getBusinesses();
+  }, []);
+
+  useEffect(() => {
+    const getReviews = async () => {
+      try {
+        await axios("/api/reviews")
+          .then((data) => {
+            console.log(data.data);
+            setReviews(data.data);
+          })
+          .catch((err) => console.log(err));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getReviews();
   }, []);
 
   const attemptLoginWithToken = async () => {
@@ -127,18 +142,30 @@ function App() {
         />
         <Route
           path="/businesses"
-          element={<Businesses businesses={businesses} />}
+          element={<Businesses businesses={businesses} reviews={reviews} />}
         />
         <Route path="/users" element={<Users users={users} />} />
-        <Route path="/user/:id" element={<SingleUser />} />
-        {!!auth.id && <Route path="/createReview" element={<CreateReview />} />}
+        <Route path="/user/:id" element={<SingleUser reviews={reviews} />} />
+        <Route
+          path="/business/:id"
+          element={<SingleBusiness businesses={businesses} auth={auth} reviews={reviews}/>}
+        />
+        {!!auth.id && (
+          <Route
+            path="/createReview/:businessId"
+            element={<CreateReview businesses={businesses} userId={auth.id} />}
+          />
+        )}
         <Route
           path="/register"
           element={
             <Register auth={auth} authAction={authAction} logout={logout} />
           }
         />
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/login"
+          element={<Login authAction={authAction} auth={auth} />}
+        />
       </Routes>
     </>
   );
