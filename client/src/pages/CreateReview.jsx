@@ -2,16 +2,24 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-const CreateReview = ({ userId }) => {
-  const { businessId, businessname } = useParams();
-
+const CreateReview = ({ userId, businesses }) => {
+  const { businessId } = useParams();
   const [comments, setComments] = useState(null);
   const [rating, setRating] = useState(null);
+  const [foundBusiness, setFoundBusiness] = useState(businesses);
+
+  const handleSearch = (e) => {
+    const searchResult = businesses.filter((business) =>
+      business.businessname.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+    setFoundBusiness(searchResult);
+    console.log(foundBusiness);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(formData);
-    console.log(businessId, businessname);
+
+    console.log(businessId);
     console.log(userId);
     const newReview = {
       userId,
@@ -36,7 +44,11 @@ const CreateReview = ({ userId }) => {
 
   return (
     <div>
-      <h2>{businessId}</h2>
+      <p>
+        Search for a business:
+        <input type="text" name="business" onChange={handleSearch} />
+      </p>
+
       <form onSubmit={handleSubmit}>
         <textarea
           name="comments"
@@ -66,7 +78,7 @@ const CreateReview = ({ userId }) => {
           <input type="radio" value="5" name="rating" onChange={handleRating} />{" "}
           5 ⭐⭐⭐⭐⭐
         </label>
-        <button>Submit</button>
+        {businessId && <button>Submit</button>}
       </form>
     </div>
   );

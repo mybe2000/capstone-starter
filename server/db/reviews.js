@@ -52,9 +52,20 @@ const fetchReviewsByBusinessId = async (businessId) => {
   }
 };
 
+const deleteReview = async (businessid) => {
+  try {
+    const SQL = `DELETE FROM reviews WHERE businessid=$1 RETURNING *`;
+    const result = await client.query(SQL, [businessid]);
+    return result.rows;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   createReview,
   fetchReviews,
   fetchReviewsByUserId,
   fetchReviewsByBusinessId,
+  deleteReview,
 };
