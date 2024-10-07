@@ -4,6 +4,7 @@ const router = express.Router();
 const {
   fetchReviews,
   fetchReviewsByUserId,
+  // fetchUserReviews
   fetchReviewsByBusinessId,
   createReview,
   deleteReview,
@@ -49,6 +50,7 @@ router.post("/", async (req, res, next) => {
 router.delete("/:id", async (req, res, next) => {
   try {
     const result = await deleteReview(req.params.id);
+
     res.send({ message: "Review deleted successfully", id: result });
   } catch (error) {
     next(error);

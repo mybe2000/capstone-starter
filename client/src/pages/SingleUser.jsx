@@ -3,10 +3,11 @@ import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-function SingleUser() {
+function SingleUser({ businesses, auth }) {
   const { id } = useParams();
   const [user, setUser] = useState(null);
   const [reviews, setReviews] = useState(null);
+  console.log(auth);
 
   useEffect(() => {
     const getUserById = async () => {
@@ -39,6 +40,13 @@ function SingleUser() {
     };
     getReviews();
   }, [id]);
+  console.log(businesses);
+  // console.log(reviews);
+  // console.log(user);
+  // const businessName = businesses.filter(
+  //   (business) => business.id === reviews.businessid
+  // );
+  // console.log(businessName);
 
   return (
     <div>
@@ -47,7 +55,6 @@ function SingleUser() {
       <h3>Reviews for: </h3>
       {reviews?.map((review) => (
         <div key={review?.id} className="reviews">
-          <Link to={`/user/${user?.id}`}></Link>
           <p> Rating: {review?.rating}</p>
           <p>{review?.comments}</p>
         </div>

@@ -5,7 +5,7 @@ const Users = ({ users }) => {
   return (
     <div>
       <h1>{users.length} Users</h1>
-      <p>Click on user to see their reviews</p>
+      <p>Click on user to see their business reviews</p>
       {users.map((user) => (
         <UserCard key={user.id} user={user} />
       ))}

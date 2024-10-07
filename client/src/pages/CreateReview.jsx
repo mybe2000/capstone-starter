@@ -6,15 +6,16 @@ const CreateReview = ({ userId, businesses }) => {
   const { businessId } = useParams();
   const [comments, setComments] = useState(null);
   const [rating, setRating] = useState(null);
-  const [foundBusiness, setFoundBusiness] = useState(businesses);
 
-  const handleSearch = (e) => {
-    const searchResult = businesses.filter((business) =>
-      business.businessname.toLowerCase().includes(e.target.value.toLowerCase())
-    );
-    setFoundBusiness(searchResult);
-    console.log(foundBusiness);
-  };
+  // const [searchedBusiness, setSearchedBusiness] = useState(businesses);
+
+  // const handleSearch = (e) => {
+  //   const searchResult = businesses.find((business) =>
+  //     business.businessname.toLowerCase().includes(e.target.value.toLowerCase())
+  //   );
+  //   setSearchedBusiness(searchResult ? [searchResult] : []);
+  //   console.log(searchedBusiness);
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,6 +29,10 @@ const CreateReview = ({ userId, businesses }) => {
       rating: rating,
     };
     console.log(newReview);
+
+    {
+      !rating && alert("Please provide a star-rating");
+    }
 
     axios
       .post("/api/reviews", newReview)
@@ -44,11 +49,6 @@ const CreateReview = ({ userId, businesses }) => {
 
   return (
     <div>
-      <p>
-        Search for a business:
-        <input type="text" name="business" onChange={handleSearch} />
-      </p>
-
       <form onSubmit={handleSubmit}>
         <textarea
           name="comments"

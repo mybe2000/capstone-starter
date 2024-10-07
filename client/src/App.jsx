@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import axios from "axios";
 import SingleUser from "./pages/SingleUser";
 import SingleBusiness from "./pages/SingleBusiness";
+import Account from "./pages/Account";
 
 function App() {
   const [auth, setAuth] = useState({});
@@ -24,9 +25,6 @@ function App() {
     const getUsers = async () => {
       console.log("getUsers function called");
       try {
-        // const response = await fetch("/api/users");
-        // const data = await response.json();
-        // setUsers(data);
         await axios("/api/users")
           .then((data) => {
             console.log(data.data);
@@ -121,7 +119,7 @@ function App() {
         <Link to="/businesses">Businesses ({businesses.length})</Link>
         <Link to="/users">Users ({users.length})</Link>
         {auth.id ? (
-          <Link to="/createReview">Create Review</Link>
+          <Link to="/me">Account</Link>
         ) : (
           <Link to="/login">Register/Login</Link>
         )}
@@ -145,7 +143,12 @@ function App() {
           element={<Businesses businesses={businesses} reviews={reviews} />}
         />
         <Route path="/users" element={<Users users={users} />} />
-        <Route path="/user/:id" element={<SingleUser reviews={reviews} />} />
+        <Route
+          path="/user/:id"
+          element={
+            <SingleUser reviews={reviews} businesses={businesses} auth={auth} />
+          }
+        />
         <Route
           path="/business/:id"
           element={
@@ -162,6 +165,13 @@ function App() {
             element={<CreateReview businesses={businesses} userId={auth.id} />}
           />
         )}
+
+        <Route
+          path="/me"
+          element={
+            <Account auth={auth} reviews={reviews} setReviews={setReviews} />
+          }
+        />
         <Route
           path="/createReview"
           element={<CreateReview businesses={businesses} userId={auth.id} />}

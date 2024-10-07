@@ -11,7 +11,6 @@ function BusinessCardList({ businesses }) {
             <h3>{business.businessname}</h3>
           </Link>
         </div>
-        // <BusinessCard key={business.id} business={business} />
       ))}
     </div>
   );
