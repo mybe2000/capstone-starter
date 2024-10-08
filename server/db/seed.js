@@ -72,9 +72,14 @@ const init = async () => {
     }),
     createReview({
       userId: users[1].id,
+      businessId: businesses[0].id,
+      comments: "good",
+      rating: "4",
+    }),
+    createReview({
+      userId: users[1].id,
       businessId: businesses[1].id,
-      // name: "clothingStore",
-      comments: "Have a good selection",
+      comments: "They have a good selection",
       rating: "4",
     }),
     createReview({

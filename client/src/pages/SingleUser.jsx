@@ -3,11 +3,10 @@ import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-function SingleUser({ businesses, auth }) {
+function SingleUser({ reviews }) {
   const { id } = useParams();
   const [user, setUser] = useState(null);
-  const [reviews, setReviews] = useState(null);
-  console.log(auth);
+  console.log(reviews);
 
   useEffect(() => {
     const getUserById = async () => {
@@ -25,38 +24,25 @@ function SingleUser({ businesses, auth }) {
     getUserById();
   }, [id]);
 
-  useEffect(() => {
-    const getReviews = async () => {
-      try {
-        await axios(`/api/reviews/${id}`)
-          .then((data) => {
-            console.log(data.data);
-            setReviews(data.data);
-          })
-          .catch((err) => console.log(err));
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getReviews();
-  }, [id]);
-  console.log(businesses);
-  // console.log(reviews);
-  // console.log(user);
-  // const businessName = businesses.filter(
-  //   (business) => business.id === reviews.businessid
-  // );
-  // console.log(businessName);
+  const userReviews = reviews.filter((review) => review.userid === id);
+  console.log(userReviews);
 
   return (
     <div>
       <h3>Username: </h3>
       <h4>{user?.username}</h4>
       <h3>Reviews for: </h3>
-      {reviews?.map((review) => (
-        <div key={review?.id} className="reviews">
-          <p> Rating: {review?.rating}</p>
-          <p>{review?.comments}</p>
+      {userReviews.length === 0 && (
+        <div>
+          <p>No reviews yet.</p>{" "}
+          <Link to="/login">Log in to add a review!</Link>
+        </div>
+      )}
+      {userReviews.map((review) => (
+        <div key={review.id} className="reviews">
+          <h4>{review.businessname}</h4>
+          <p> Rating: {review.rating}</p>
+          <p>{review.comments}</p>
         </div>
       ))}
     </div>

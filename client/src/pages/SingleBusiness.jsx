@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, Link } from "react-router-dom";
 
-function SingleBusiness({ auth, reviews }) {
+function SingleBusiness({ auth, reviews, users }) {
   const { id } = useParams();
   const [business, setBusiness] = useState(null);
 
@@ -23,6 +23,7 @@ function SingleBusiness({ auth, reviews }) {
   }, [id]);
 
   console.log(reviews);
+  console.log(users);
 
   const businessReviews = reviews.filter(
     (review) => review.businessid === business?.id
@@ -35,6 +36,7 @@ function SingleBusiness({ auth, reviews }) {
       <p>Number of reviews: {businessReviews.length}</p>
       {businessReviews.map((review) => (
         <div key={review?.id} className="businessReviews">
+          <p>From {review?.username}</p>
           <p>{review?.comments}</p>
           <p>Rating: {review?.rating}</p>
         </div>

@@ -4,13 +4,10 @@ const router = express.Router();
 const {
   fetchReviews,
   fetchReviewsByUserId,
-  // fetchUserReviews
   fetchReviewsByBusinessId,
   createReview,
   deleteReview,
 } = require("../db");
-
-const { isLoggedIn } = require("./utils");
 
 router.get("/", async (req, res) => {
   try {

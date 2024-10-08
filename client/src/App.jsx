@@ -156,6 +156,7 @@ function App() {
               businesses={businesses}
               auth={auth}
               reviews={reviews}
+              users={users}
             />
           }
         />

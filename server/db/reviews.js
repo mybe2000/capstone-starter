@@ -24,7 +24,16 @@ const createReview = async ({ userId, businessId, comments, rating }) => {
 
 const fetchReviews = async () => {
   try {
-    const SQL = `SELECT * FROM reviews`;
+    const SQL = `SELECT 
+    businesses.businessname, 
+    reviews.userid, 
+    reviews.businessid, 
+    reviews.comments, 
+    reviews.rating, 
+    users.username                                                     
+    FROM reviews 
+    INNER JOIN businesses ON reviews.businessid = businesses.id 
+    INNER JOIN users ON reviews.userid = users.id`;
     const response = await client.query(SQL);
     return response.rows;
   } catch (error) {
@@ -41,26 +50,6 @@ const fetchReviewsByUserId = async (userId) => {
     console.log(error);
   }
 };
-
-// const fetchReviewsByUserId = async (userId) => {
-//   try {
-//     const SQL = `SELECT reviews.id, reviews.userid, reviews.businessid, reviews.comments, reviews.rating, users.username FROM reviews INNER JOIN users ON reviews.userid = users.id WHERE reviews.userid=$1 `;
-//     const response = await client.query(SQL, [userId]);
-//     console.log(response);
-//     return response.rows;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-// const fetchUserReviews = async (userId) => {
-//   try {
-//     const SQL = `SELECT businesses.id, reviews.id, reviews.userid, reviews.businessid, reviews.comments, reviews.rating FROM reviews JOIN businesses ON businesses.businessid = businesses.id AND userid=$1`;
-//     const response = await client.query(SQL, [userId]);
-//     return response;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
 
 const fetchReviewsByBusinessId = async (businessId) => {
   try {
@@ -90,5 +79,4 @@ module.exports = {
   fetchReviewsByUserId,
   fetchReviewsByBusinessId,
   deleteReview,
-  // fetchUserReviews,
 };

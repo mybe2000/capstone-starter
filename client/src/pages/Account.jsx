@@ -17,7 +17,7 @@ function Account({ auth, setReviews, reviews }) {
         .then((data) => console.log(data))
         .catch((err) => console.log(err));
 
-      if (result.status === 200) {
+      if (result) {
         axios(`/api/reviews`)
           .then((data) => {
             console.log(data);
