@@ -15,14 +15,14 @@ const Businesses = ({ businesses, reviews }) => {
 
   return (
     <div>
-      <h1>{businesses.length} Businesses</h1>
+      <h2>{businesses.length} Businesses</h2>
       <p>
         Search for a business:
         <input type="text" name="business" onChange={handleSearch} />
       </p>
 
       <p>Click on a business to see their reviews</p>
-      <BusinessCardList businesses={foundBusiness} />
+      <BusinessCardList businesses={foundBusiness} reviews={reviews} />
     </div>
   );
 };

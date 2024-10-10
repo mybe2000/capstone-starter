@@ -1,40 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
 function Account({ auth, setReviews, reviews }) {
-  // const { id } = useParams();
-
-  const myReviews = reviews.filter((review) => review.userid === auth.id);
+  console.log(reviews);
+  const myReviews = reviews.filter((review) => review?.userid === auth.id);
   console.log(myReviews);
-
-  const numReviews = myReviews.length;
 
   const handleDelete = async (id) => {
     try {
       const result = await axios
         .delete(`http://localhost:3000/api/reviews/${id}`)
-        .then((data) => console.log(data))
+        .then((data) => {
+          console.log(data);
+          // setReviews((prevReviews) =>
+          //   prevReviews.filter((review) => review.id !== id)
+          // );
+          // setReviews(data);
+        })
         .catch((err) => console.log(err));
 
-      if (result) {
-        axios(`/api/reviews`)
-          .then((data) => {
-            console.log(data);
-            setReviews(data);
-          })
-          .catch((err) => console.log(err));
-      }
+      axios(`/api/reviews`).then((data) => {
+        console.log(data.data);
+        setReviews(data.data);
+      });
     } catch (error) {
       console.log(error);
     }
+    console.log(reviews);
   };
 
   return (
     <div>
-      {auth.id && <h1>{auth.username}</h1>}
+      {auth.id && <h2 className="username">{auth.username}</h2>}
       <p>My reviews:</p>
-      {!numReviews ? (
+      {myReviews?.length === 0 ? (
         <div>
           <h3>No reviews yet</h3>
           <p>
@@ -42,11 +42,15 @@ function Account({ auth, setReviews, reviews }) {
           </p>
         </div>
       ) : (
-        <div>
-          {myReviews.map((review) => (
-            <div key={review.id}>
-              {review.comments}, Rating: {review.rating}
-              <button onClick={() => handleDelete(review.id)}>Delete</button>
+        <div className="userReviews">
+          {myReviews?.map((review) => (
+            <div key={review?.id}>
+              <h3>{review?.businessname}</h3>
+              <p>"{review?.comments}"</p>
+              <p>My rating: {review?.rating}</p>
+              <button onClick={() => handleDelete(review?.id)}>
+                Delete my review
+              </button>
             </div>
           ))}
         </div>

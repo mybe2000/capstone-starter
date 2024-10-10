@@ -26,6 +26,7 @@ const fetchReviews = async () => {
   try {
     const SQL = `SELECT 
     businesses.businessname, 
+    reviews.id,
     reviews.userid, 
     reviews.businessid, 
     reviews.comments, 

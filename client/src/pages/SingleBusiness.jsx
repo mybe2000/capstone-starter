@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, Link } from "react-router-dom";
 
-function SingleBusiness({ auth, reviews, users }) {
+function SingleBusiness({ auth, reviews }) {
   const { id } = useParams();
   const [business, setBusiness] = useState(null);
 
@@ -22,22 +22,25 @@ function SingleBusiness({ auth, reviews, users }) {
     getBusinesses();
   }, [id]);
 
-  console.log(reviews);
-  console.log(users);
-
   const businessReviews = reviews.filter(
     (review) => review.businessid === business?.id
   );
-  console.log(businessReviews);
+
+  const overallRating =
+    businessReviews.reduce((sum, review) => sum + review.rating, 0) /
+    reviews.length;
 
   return (
-    <div className="business">
-      <h3>{business?.businessname}</h3>
-      <p>Number of reviews: {businessReviews.length}</p>
+    <div className="business" key={business?.id}>
+      <h2 className="singleBusinessName">{business?.businessname}</h2>
+      <div className="ratingsBox">
+        <h4>Overall rating: {overallRating}</h4>
+        <p>Number of reviews: {businessReviews.length}</p>
+      </div>
       {businessReviews.map((review) => (
         <div key={review?.id} className="businessReviews">
           <p>From {review?.username}</p>
-          <p>{review?.comments}</p>
+          <p>'{review?.comments}'</p>
           <p>Rating: {review?.rating}</p>
         </div>
       ))}

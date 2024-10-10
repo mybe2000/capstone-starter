@@ -124,6 +124,7 @@ function App() {
           <Link to="/login">Register/Login</Link>
         )}
       </nav>
+      <h3>{reviews?.length} total reviews</h3>
       {auth.id && <button onClick={logout}>Logout {auth.username}</button>}
       <Routes>
         <Route
@@ -142,7 +143,10 @@ function App() {
           path="/businesses"
           element={<Businesses businesses={businesses} reviews={reviews} />}
         />
-        <Route path="/users" element={<Users users={users} />} />
+        <Route
+          path="/users"
+          element={<Users users={users} reviews={reviews} />}
+        />
         <Route
           path="/user/:id"
           element={
@@ -163,7 +167,13 @@ function App() {
         {!!auth.id && (
           <Route
             path="/createReview/:businessId"
-            element={<CreateReview businesses={businesses} userId={auth.id} />}
+            element={
+              <CreateReview
+                businesses={businesses}
+                auth={auth}
+                setReviews={setReviews}
+              />
+            }
           />
         )}
 
@@ -173,10 +183,7 @@ function App() {
             <Account auth={auth} reviews={reviews} setReviews={setReviews} />
           }
         />
-        <Route
-          path="/createReview"
-          element={<CreateReview businesses={businesses} userId={auth.id} />}
-        />
+
         <Route
           path="/register"
           element={

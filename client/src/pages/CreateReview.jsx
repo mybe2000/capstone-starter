@@ -1,43 +1,45 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const CreateReview = ({ userId, businesses }) => {
+const CreateReview = ({ auth, businesses, setReviews }) => {
   const { businessId } = useParams();
   const [comments, setComments] = useState(null);
   const [rating, setRating] = useState(null);
+  const [submitted, setSubmitted] = useState(false);
 
-  // const [searchedBusiness, setSearchedBusiness] = useState(businesses);
+  const businessName = businesses.find(
+    (business) => business.id === businessId
+  )?.businessname;
 
-  // const handleSearch = (e) => {
-  //   const searchResult = businesses.find((business) =>
-  //     business.businessname.toLowerCase().includes(e.target.value.toLowerCase())
-  //   );
-  //   setSearchedBusiness(searchResult ? [searchResult] : []);
-  //   console.log(searchedBusiness);
-  // };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(businessId);
-    console.log(userId);
     const newReview = {
-      userId,
+      userId: auth.id,
       businessId,
-      comments: comments,
-      rating: rating,
+      comments,
+      rating,
     };
     console.log(newReview);
 
-    {
-      !rating && alert("Please provide a star-rating");
+    if (!rating) {
+      alert("Please provide a star-rating");
+      return;
     }
-
-    axios
-      .post("/api/reviews", newReview)
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
+    try {
+      const response = await axios
+        .post("/api/reviews", newReview)
+        .then((data) => {
+          console.log(data.data);
+          setReviews((reviews) => [...reviews, data.data]);
+          setSubmitted(true);
+          document.getElementById("reviewForm").reset();
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleComments = (e) => {
@@ -49,7 +51,8 @@ const CreateReview = ({ userId, businesses }) => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <h2>{businessName}</h2>
+      <form onSubmit={handleSubmit} id="reviewForm">
         <textarea
           name="comments"
           rows="8"
@@ -78,7 +81,14 @@ const CreateReview = ({ userId, businesses }) => {
           <input type="radio" value="5" name="rating" onChange={handleRating} />{" "}
           5 ⭐⭐⭐⭐⭐
         </label>
-        {businessId && <button>Submit</button>}
+        {submitted ? (
+          <div>
+            <p>Review submitted!</p>
+            <Link to="/businesses">Write another review</Link>
+          </div>
+        ) : (
+          <button>Submit</button>
+        )}
       </form>
     </div>
   );
