@@ -6,7 +6,6 @@ import axios from "axios";
 function SingleUser({ reviews, auth }) {
   const { id } = useParams();
   const [user, setUser] = useState(null);
-  console.log(reviews);
 
   useEffect(() => {
     const getUserById = async () => {
@@ -25,7 +24,6 @@ function SingleUser({ reviews, auth }) {
   }, [id]);
 
   const userReviews = reviews.filter((review) => review.userid === id);
-  console.log(userReviews);
 
   return (
     <div>
@@ -41,7 +39,7 @@ function SingleUser({ reviews, auth }) {
       ) : (
         <div>
           {auth.id === id && <Link to="/businesses">Add a review</Link>}
-          {!auth.id && <Link>Log in to add a review</Link>}
+          {!auth.id && <Link to="/login">Log in to add a review</Link>}
           {userReviews?.map((review) => (
             <div key={review.id} className="reviews">
               <h4>{review.businessname}</h4>

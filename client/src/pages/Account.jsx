@@ -13,10 +13,6 @@ function Account({ auth, setReviews, reviews }) {
         .delete(`http://localhost:3000/api/reviews/${id}`)
         .then((data) => {
           console.log(data);
-          // setReviews((prevReviews) =>
-          //   prevReviews.filter((review) => review.id !== id)
-          // );
-          // setReviews(data);
         })
         .catch((err) => console.log(err));
 

@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 const CreateReview = ({ auth, businesses, setReviews }) => {
   const { businessId } = useParams();
@@ -9,16 +8,8 @@ const CreateReview = ({ auth, businesses, setReviews }) => {
   const [rating, setRating] = useState(null);
 
   const [businessToReview, setBusinessToReview] = useState({});
-  console.log(businessToReview);
+
   const [submitted, setSubmitted] = useState(false);
-  // const business = businesses.find((business) => business.id === businessId);
-  // console.log(business);
-  // const businessName = businesses.find(
-  //   (business) => business.id === businessId
-  // )?.businessname;
-  // console.log(businessName);
-  console.log(businessToReview);
-  console.log(businessId);
 
   useEffect(() => {
     axios(`/api/businesses/${businessId}`)
@@ -46,7 +37,6 @@ const CreateReview = ({ auth, businesses, setReviews }) => {
       comments,
       rating,
     };
-    console.log(newReview);
 
     if (!rating) {
       alert("Please provide a star-rating");

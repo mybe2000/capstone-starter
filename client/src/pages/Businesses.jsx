@@ -2,8 +2,6 @@ import { useState } from "react";
 import BusinessCardList from "./BusinessCardList";
 
 const Businesses = ({ businesses, reviews }) => {
-  console.log(businesses);
-  console.log(reviews);
   const [foundBusiness, setFoundBusiness] = useState(businesses);
 
   const handleSearch = (e) => {

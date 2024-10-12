@@ -7,6 +7,10 @@ const { client } = require("./db");
 client.connect();
 
 app.use(express.json());
+// app.use(express.static("dist"));
+// app.get("/", (req, res, next) => {
+//   res.sendFile(`${__dirname}/dist/index.html`);
+// });
 
 app.use(cors());
 
