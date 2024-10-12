@@ -7,18 +7,42 @@ const CreateReview = ({ auth, businesses, setReviews }) => {
   const { businessId } = useParams();
   const [comments, setComments] = useState(null);
   const [rating, setRating] = useState(null);
-  const [submitted, setSubmitted] = useState(false);
 
-  const businessName = businesses.find(
-    (business) => business.id === businessId
-  )?.businessname;
+  const [businessToReview, setBusinessToReview] = useState({});
+  console.log(businessToReview);
+  const [submitted, setSubmitted] = useState(false);
+  // const business = businesses.find((business) => business.id === businessId);
+  // console.log(business);
+  // const businessName = businesses.find(
+  //   (business) => business.id === businessId
+  // )?.businessname;
+  // console.log(businessName);
+  console.log(businessToReview);
+  console.log(businessId);
+
+  useEffect(() => {
+    axios(`/api/businesses/${businessId}`)
+      .then((data) => {
+        console.log(data.data);
+        setBusinessToReview(data.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  const handleSearch = (e) => {
+    const searchResult = businesses.find((business) =>
+      business.businessname.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+    setBusinessToReview(searchResult);
+    setSubmitted(false);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const newReview = {
       userId: auth.id,
-      businessId,
+      businessId: businessId || businessToReview.id,
       comments,
       rating,
     };
@@ -36,6 +60,7 @@ const CreateReview = ({ auth, businesses, setReviews }) => {
           setReviews((reviews) => [...reviews, data.data]);
           setSubmitted(true);
           document.getElementById("reviewForm").reset();
+          setBusinessToReview("");
         });
     } catch (error) {
       console.log(error);
@@ -51,8 +76,14 @@ const CreateReview = ({ auth, businesses, setReviews }) => {
 
   return (
     <div>
-      <h2>{businessName}</h2>
       <form onSubmit={handleSubmit} id="reviewForm">
+        <label>
+          Search for a business:
+          <input type="text" name="business" onChange={handleSearch} />
+        </label>
+        <h3>
+          {businessId || businessToReview ? businessToReview.businessname : ""}
+        </h3>
         <textarea
           name="comments"
           rows="8"
@@ -81,14 +112,9 @@ const CreateReview = ({ auth, businesses, setReviews }) => {
           <input type="radio" value="5" name="rating" onChange={handleRating} />{" "}
           5 ⭐⭐⭐⭐⭐
         </label>
-        {submitted ? (
-          <div>
-            <p>Review submitted!</p>
-            <Link to="/businesses">Write another review</Link>
-          </div>
-        ) : (
-          <button>Submit</button>
-        )}
+        {submitted && <p>Review submitted!</p>}
+
+        {businessToReview && <button>Submit</button>}
       </form>
     </div>
   );

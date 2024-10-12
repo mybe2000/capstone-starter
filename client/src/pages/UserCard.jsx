@@ -6,10 +6,10 @@ function UserCard({ user, reviews }) {
     <div className="usersBox">
       <Link to={`/user/${user.id}`} className="userLinks">
         <h3 className="usernameStyle">{user.username}</h3>
-        <p>
+        <h3>
           Ratings:
-          {reviews.filter((review) => review.userid === user.id).length}{" "}
-        </p>
+          {reviews.filter((review) => review.userid === user.id).length}
+        </h3>
       </Link>
     </div>
   );

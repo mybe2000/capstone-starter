@@ -119,7 +119,10 @@ function App() {
         <Link to="/businesses">Businesses ({businesses.length})</Link>
         <Link to="/users">Users ({users.length})</Link>
         {auth.id ? (
-          <Link to="/me">Account</Link>
+          <div className="links">
+            <Link to="/me">Account</Link>
+            <Link to="/createReview">Create Review</Link>
+          </div>
         ) : (
           <Link to="/login">Register/Login</Link>
         )}
@@ -167,6 +170,18 @@ function App() {
         {!!auth.id && (
           <Route
             path="/createReview/:businessId"
+            element={
+              <CreateReview
+                businesses={businesses}
+                auth={auth}
+                setReviews={setReviews}
+              />
+            }
+          />
+        )}
+        {!!auth.id && (
+          <Route
+            path="/createReview"
             element={
               <CreateReview
                 businesses={businesses}

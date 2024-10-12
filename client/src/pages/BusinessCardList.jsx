@@ -8,14 +8,20 @@ function BusinessCardList({ businesses, reviews }) {
         <div key={business.id} className="businessLinksBox">
           <Link to={`/business/${business.id}`} className="businessLinks">
             <div className="businessRating">
-              <h3>{business.businessname} (</h3>
-              <h3>
-                {reviews
-                  .filter((review) => review.businessid === business?.id)
-                  .reduce((sum, review) => sum + review.rating, 0) /
-                  reviews.length}
-                )
-              </h3>
+              <h3>{business.businessname} </h3>
+              {/* <h3>
+                {
+                const businessReviews = reviews
+                  .filter((review) => review.businessid === business?.id);
+                  
+                  const totalRating = businessReviews
+                  .reduce((sum, review) => sum + review.rating, 0);
+                
+                  const averageRating = totalRating/businessReviews.length;
+                  console.log(averageRating)
+                }
+                
+              </h3> */}
             </div>
             <p>
               Number of reviews:
