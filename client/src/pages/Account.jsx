@@ -1,29 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
 function Account({ auth, setReviews, reviews }) {
-  console.log(reviews);
   const myReviews = reviews.filter((review) => review?.userid === auth.id);
   console.log(myReviews);
 
+  // const [editingReviewId, setEditingReviewId] = useState(null);
+  // const [updatedComments, setUpdatedComments] = useState("");
+  // const [updatedRating, setUpdatedRating] = useState("");
+
   const handleDelete = async (id) => {
     try {
-      const result = await axios
+      await axios
         .delete(`http://localhost:3000/api/reviews/${id}`)
         .then((data) => {
           console.log(data);
         })
         .catch((err) => console.log(err));
 
-      axios(`/api/reviews`).then((data) => {
+      const result = await axios(`/api/reviews`).then((data) => {
         console.log(data.data);
         setReviews(data.data);
       });
     } catch (error) {
       console.log(error);
     }
-    console.log(reviews);
   };
 
   return (
@@ -44,6 +46,7 @@ function Account({ auth, setReviews, reviews }) {
               <h3>{review?.businessname}</h3>
               <p>"{review?.comments}"</p>
               <p>My rating: {review?.rating}</p>
+
               <button onClick={() => handleDelete(review?.id)}>
                 Delete my review
               </button>
