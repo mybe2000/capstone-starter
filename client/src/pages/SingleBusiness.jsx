@@ -5,6 +5,7 @@ import { useParams, Link } from "react-router-dom";
 function SingleBusiness({ auth, reviews }) {
   const { id } = useParams();
   const [business, setBusiness] = useState(null);
+  console.log(business);
 
   useEffect(() => {
     const getBusiness = async () => {
@@ -35,6 +36,9 @@ function SingleBusiness({ auth, reviews }) {
   return (
     <div className="business" key={business?.id}>
       <h2 className="singleBusinessName">{business?.businessname}</h2>
+      <div className="imageBusiness">
+        <img src={business?.imageurl} className="images" />
+      </div>
 
       <div className="ratingsBox">
         <h4>Average score: {avgScore}</h4>

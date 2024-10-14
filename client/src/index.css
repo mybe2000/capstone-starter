@@ -65,6 +65,14 @@ nav {
   padding: 10px;
 }
 
+.imageBusiness {
+  display: flex;
+  justify-content: center;
+}
+.images {
+  width: 70vw;
+}
+
 .businessReviews,
 .userReviews {
   background-color: rgb(129, 179, 179);

@@ -24,7 +24,8 @@ const createTables = async () => {
   
   CREATE TABLE businesses(
   id UUID PRIMARY KEY,
-  businessname VARCHAR(64) NOT NULL
+  businessname VARCHAR(64) NOT NULL,
+  imageUrl VARCHAR(755)
   );
 
   CREATE TABLE reviews(
@@ -56,9 +57,21 @@ const init = async () => {
   console.log("FETCH USER :", users);
 
   const [] = await Promise.all([
-    createBusiness({ businessname: "Tailor Tom" }),
-    createBusiness({ businessname: "clothingStore" }),
-    createBusiness({ businessname: "carshop" }),
+    createBusiness({
+      businessname: "Angelo's Pizza",
+      imageUrl:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8P7xTejhoWd1JAiMBgWSC7_SnJ87UszQm0g&s",
+    }),
+    createBusiness({
+      businessname: "ShoeStore SW",
+      imageUrl:
+        "https://arktura.com/wp-content/uploads/2020/05/Arktura-Vapor-Trail-Feature-Shoe-Store-Las-VegasNV_Web_1-1-scaled.jpg",
+    }),
+    createBusiness({
+      businessname: "Craig's Coffee",
+      imageUrl:
+        "https://verileet.com/wp-content/uploads/2020/12/Coffee-Shop-main-Image-1236x800.jpg",
+    }),
   ]);
   const businesses = await fetchBusinesses();
   console.log("fetch businesses", businesses);
@@ -67,7 +80,7 @@ const init = async () => {
     createReview({
       userId: users[0].id,
       businessId: businesses[0].id,
-      comments: "Hemmed my pants perfectly",
+      comments: "Fast delivery and delicious pizza",
       rating: "5",
     }),
     createReview({
@@ -79,14 +92,14 @@ const init = async () => {
     createReview({
       userId: users[1].id,
       businessId: businesses[1].id,
-      comments: "They have a good selection",
+      comments: "very expensive",
       rating: "4",
     }),
     createReview({
       userId: users[1].id,
       businessId: businesses[2].id,
 
-      comments: "very expensive",
+      comments: "They have a good selection of coffee",
       rating: "3",
     }),
   ]);
