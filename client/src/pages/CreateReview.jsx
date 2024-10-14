@@ -72,7 +72,12 @@ const CreateReview = ({ auth, businesses, setReviews }) => {
           <input type="text" name="business" onChange={handleSearch} />
         </label>
         <h3>
-          {businessId || businessToReview ? businessToReview.businessname : ""}
+          Create a review for:
+          <p>
+            {businessId || businessToReview
+              ? businessToReview.businessname
+              : ""}
+          </p>
         </h3>
         <textarea
           name="comments"

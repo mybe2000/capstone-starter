@@ -3,7 +3,8 @@ const uuid = require("uuid");
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const JWT = process.env.JWT || "shhh";
+const JWT = process.env.JWT;
+// || "shhh";
 if (JWT === "shhh") {
   console.log("If deployed, set process.env.JWT to something other than shhh");
 }

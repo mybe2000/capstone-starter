@@ -24,6 +24,7 @@ const getBusinessById = async (id) => {
   try {
     const SQL = `SELECT id, businessname FROM businesses WHERE id=$1`;
     const business = await client.query(SQL, [id]);
+
     return business.rows[0];
   } catch (error) {
     console.log(error);

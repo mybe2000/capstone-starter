@@ -7,7 +7,7 @@ function SingleBusiness({ auth, reviews }) {
   const [business, setBusiness] = useState(null);
 
   useEffect(() => {
-    const getBusinesses = async () => {
+    const getBusiness = async () => {
       try {
         await axios(`/api/businesses/${id}`)
           .then((data) => {
@@ -19,8 +19,8 @@ function SingleBusiness({ auth, reviews }) {
         console.log(error);
       }
     };
-    getBusinesses();
-  }, [id]);
+    getBusiness();
+  }, []);
 
   const businessReviews = reviews.filter(
     (review) => review.businessid === business?.id

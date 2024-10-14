@@ -13,6 +13,7 @@ router.get("/", async (req, res, next) => {
 router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
+    console.log("id", id);
     const result = await getBusinessById(id);
     res.send(result);
   } catch (error) {
