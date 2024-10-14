@@ -16,6 +16,10 @@ app.use(cors());
 
 app.use("/api", require("./api"));
 
+app.get("/", (req, res) => {
+  res.send("hello from server");
+});
+
 app.use((err, req, res, next) => {
   console.log(err);
   res
