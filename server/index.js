@@ -9,10 +9,10 @@ client.connect();
 app.use(express.json());
 
 // const path = require("path");
-// app.use(express.static(path.join(__dirname, "dist")));
+// app.use(express.static( "dist"));
 
 // app.get("/", (req, res, next) => {
-//   res.sendFile(`${__dirname}/dist/index.html`);
+//   res.sendFile(`${__dirname}/index.html`);
 // });
 
 app.use(cors());
