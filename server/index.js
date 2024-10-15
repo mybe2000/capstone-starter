@@ -7,18 +7,15 @@ const { client } = require("./db");
 client.connect();
 
 app.use(express.json());
-// app.use(express.static("dist"));
-// app.get("/", (req, res, next) => {
-//   res.sendFile(`${__dirname}/dist/index.html`);
-// });
+
+app.use(express.static("dist"));
+app.get("/", (req, res, next) => {
+  res.sendFile(`${__dirname}/dist/index.html`);
+});
 
 app.use(cors());
 
 app.use("/api", require("./api"));
-
-app.get("/", (req, res) => {
-  res.send("hello from server");
-});
 
 app.use((err, req, res, next) => {
   console.log(err);
