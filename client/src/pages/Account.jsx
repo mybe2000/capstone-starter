@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -6,9 +6,9 @@ function Account({ auth, setReviews, reviews }) {
   const myReviews = reviews.filter((review) => review?.userid === auth.id);
   console.log(myReviews);
 
-  // const [editingReviewId, setEditingReviewId] = useState(null);
-  // const [updatedComments, setUpdatedComments] = useState("");
-  // const [updatedRating, setUpdatedRating] = useState("");
+  const [editingReviewId, setEditingReviewId] = useState(null);
+  const [updatedComments, setUpdatedComments] = useState("");
+  const [updatedRating, setUpdatedRating] = useState("");
 
   const handleDelete = async (id) => {
     try {
@@ -31,6 +31,7 @@ function Account({ auth, setReviews, reviews }) {
   return (
     <div>
       {auth.id && <h2 className="username">{auth.username}</h2>}
+
       <p>My reviews:</p>
       {myReviews?.length === 0 ? (
         <div>
