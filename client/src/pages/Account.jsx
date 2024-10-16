@@ -13,9 +13,7 @@ function Account({ auth, setReviews, reviews }) {
     setEditingReviewId(review.id);
     console.log(review.id);
     setUpdatedComments(review.comments);
-    console.log(updatedComments);
     setUpdatedRating(review.rating);
-    console.log(updatedRating);
   };
 
   const handleUpdate = async (id) => {
