@@ -5,7 +5,7 @@ import { useParams, Link } from "react-router-dom";
 function SingleBusiness({ auth, reviews }) {
   const { id } = useParams();
   const [business, setBusiness] = useState(null);
-  console.log(business);
+  
 
   useEffect(() => {
     const getBusiness = async () => {

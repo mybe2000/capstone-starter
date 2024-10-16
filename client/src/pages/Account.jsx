@@ -4,7 +4,7 @@ import axios from "axios";
 
 function Account({ auth, setReviews, reviews }) {
   const myReviews = reviews.filter((review) => review?.userid === auth.id);
-  console.log(myReviews);
+
   const [editingReviewId, setEditingReviewId] = useState(null);
   const [updatedComments, setUpdatedComments] = useState("");
   const [updatedRating, setUpdatedRating] = useState("");
@@ -71,10 +71,7 @@ function Account({ auth, setReviews, reviews }) {
                 <div>
                   <textarea
                     value={updatedComments}
-                    onChange={(e) => {
-                      console.log("TYPE VALUE :", e.target.value);
-                      setUpdatedComments(e.target.value);
-                    }}
+                    onChange={(e) => setUpdatedComments(e.target.value)}
                   />
                   <input
                     type="number"

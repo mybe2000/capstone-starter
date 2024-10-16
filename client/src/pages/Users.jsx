@@ -1,7 +1,6 @@
 import UserCard from "./UserCard";
 
 const Users = ({ users, reviews }) => {
-  console.log(users);
   return (
     <div>
       <h2>{users.length} Users</h2>

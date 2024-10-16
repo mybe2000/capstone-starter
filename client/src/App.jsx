@@ -23,7 +23,6 @@ function App() {
 
   useEffect(() => {
     const getUsers = async () => {
-      console.log("getUsers function called");
       try {
         await axios("/api/users")
           .then((data) => {
@@ -40,7 +39,6 @@ function App() {
 
   useEffect(() => {
     const getBusinesses = async () => {
-      console.log("getBusiness function called");
       try {
         await axios("/api/businesses")
           .then((data) => {
