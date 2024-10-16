@@ -127,7 +127,7 @@ function App() {
           <Link to="/login">Register/Login</Link>
         )}
       </nav>
-      <h3>{reviews?.length} total reviews</h3>
+
       {auth.id && <button onClick={logout}>Logout {auth.username}</button>}
       <Routes>
         <Route
