@@ -10,9 +10,8 @@ function Account({ auth, setReviews, reviews }) {
   const [updatedRating, setUpdatedRating] = useState("");
 
   const handleEdit = (review) => {
-    console.log("review", review);
     setEditingReviewId(review.id);
-    console.log(review.id);
+
     setUpdatedComments(review.comments);
     setUpdatedRating(review.rating);
   };
