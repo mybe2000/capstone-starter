@@ -4,11 +4,35 @@ import axios from "axios";
 
 function Account({ auth, setReviews, reviews }) {
   const myReviews = reviews.filter((review) => review?.userid === auth.id);
-  console.log(myReviews);
 
   const [editingReviewId, setEditingReviewId] = useState(null);
   const [updatedComments, setUpdatedComments] = useState("");
   const [updatedRating, setUpdatedRating] = useState("");
+
+  const handleEdit = (review) => {
+    setEditingReviewId(review.id);
+    console.log(review.id);
+    setUpdatedComments(review.comments);
+    console.log(updatedComments);
+    setUpdatedRating(review.rating);
+    console.log(updatedRating);
+  };
+
+  const handleUpdate = async (id) => {
+    try {
+      await axios.patch(`http://localhost:3000/api/reviews/${id}`, {
+        comments: updatedComments,
+        rating: updatedRating,
+      });
+      const result = await axios.get(`/api/reviews`);
+      setReviews(result.data);
+      setEditingReviewId(null);
+      setUpdatedComments("");
+      setUpdatedRating("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleDelete = async (id) => {
     try {
@@ -45,12 +69,38 @@ function Account({ auth, setReviews, reviews }) {
           {myReviews?.map((review) => (
             <div key={review?.id}>
               <h3>{review?.businessname}</h3>
-              <p>"{review?.comments}"</p>
-              <p>My rating: {review?.rating}</p>
-
-              <button onClick={() => handleDelete(review?.id)}>
-                Delete my review
-              </button>
+              {editingReviewId === review.id ? (
+                <div>
+                  <textarea
+                    value={updatedComments}
+                    onChange={(e) => setUpdatedComments(e.target.value)}
+                  />
+                  <input
+                    type="number"
+                    value={updatedRating}
+                    onChange={(e) => setUpdatedRating(e.target.value)}
+                    min="1"
+                    max="5"
+                  />
+                  <button onClick={() => handleUpdate(review.id)}>
+                    Save Changes
+                  </button>
+                  <button onClick={() => setEditingReviewId(null)}>
+                    Cancel
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  <p>"{review?.comments}"</p>
+                  <p>My rating: {review?.rating}</p>
+                  <button onClick={() => handleEdit(review)}>
+                    Edit my review
+                  </button>
+                  <button onClick={() => handleDelete(review?.id)}>
+                    Delete my review
+                  </button>
+                </div>
+              )}
             </div>
           ))}
         </div>
