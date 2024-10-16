@@ -75,10 +75,21 @@ const deleteReview = async (id) => {
   }
 };
 
+const updateReview = async (comments, rating, id) => {
+  try {
+    const SQL = `UPDATE reviews SET comments=$1, rating=$2 WHERE id=$3 RETURNING *`;
+    const result = await client.query(SQL, [comments, rating, id]);
+    return result.rows[0];
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 module.exports = {
   createReview,
   fetchReviews,
   fetchReviewsByUserId,
   fetchReviewsByBusinessId,
   deleteReview,
+  updateReview
 };

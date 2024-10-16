@@ -7,6 +7,7 @@ const {
   fetchReviewsByBusinessId,
   createReview,
   deleteReview,
+  updateReview,
 } = require("../db");
 
 router.get("/", async (req, res) => {
@@ -49,6 +50,21 @@ router.delete("/:id", async (req, res, next) => {
     const result = await deleteReview(req.params.id);
 
     res.send({ message: "Review deleted successfully", id: result });
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.patch("/:id", async (req, res, next) => {
+  console.log("req.body", req.body);
+  try {
+    const result = await updateReview(
+      req.body.comments,
+      req.body.rating,
+      req.params.id
+    );
+
+    res.send({ message: "Review updated successfully", id: result });
   } catch (error) {
     next(error);
   }
