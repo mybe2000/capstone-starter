@@ -5,7 +5,6 @@ import { useParams, Link } from "react-router-dom";
 function SingleBusiness({ auth, reviews }) {
   const { id } = useParams();
   const [business, setBusiness] = useState(null);
-  
 
   useEffect(() => {
     const getBusiness = async () => {
@@ -21,7 +20,7 @@ function SingleBusiness({ auth, reviews }) {
       }
     };
     getBusiness();
-  }, []);
+  }, [id]);
 
   const businessReviews = reviews.filter(
     (review) => review.businessid === business?.id

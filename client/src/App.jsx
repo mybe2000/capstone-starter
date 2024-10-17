@@ -104,9 +104,32 @@ function App() {
     }
   };
 
-  const logout = () => {
+  const logout = async () => {
     window.localStorage.removeItem("token");
     setAuth({});
+    if (auth.admin === true) {
+      try {
+        await removeAdmin(auth.id);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const removeAdmin = async (id) => {
+    try {
+      await axios
+        .patch(`http://localhost:3000/api/users/${id}`, {
+          admin: false,
+        })
+        .then((data) => {
+          console.log(data.data);
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.error("Error:", error);
+      throw new Error("Failed to remove admin");
+    }
   };
 
   return (

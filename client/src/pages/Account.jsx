@@ -9,6 +9,22 @@ function Account({ auth, setReviews, reviews }) {
   const [updatedComments, setUpdatedComments] = useState("");
   const [updatedRating, setUpdatedRating] = useState("");
 
+  const makeAdmin = async (id) => {
+    try {
+      const response = await axios
+        .patch(`http://localhost:3000/api/users/${id}`, {
+          admin: true,
+        })
+        .then((data) => {
+          console.log(data.data);
+        })
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Failed to promote user to admin");
+    }
+  };
+
   const handleEdit = (review) => {
     setEditingReviewId(review.id);
 
@@ -54,6 +70,9 @@ function Account({ auth, setReviews, reviews }) {
     <div>
       {auth.id && <h2 className="username">{auth.username}</h2>}
 
+      {auth.username === "lucy" && (
+        <button onClick={() => makeAdmin(auth.id)}>Admin</button>
+      )}
       <p>My reviews:</p>
       {myReviews?.length === 0 ? (
         <div>
