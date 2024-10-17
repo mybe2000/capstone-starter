@@ -10,6 +10,7 @@ import axios from "axios";
 import SingleUser from "./pages/SingleUser";
 import SingleBusiness from "./pages/SingleBusiness";
 import Account from "./pages/Account";
+import CreateBusiness from "./pages/CreateBusiness";
 
 function App() {
   const [auth, setAuth] = useState({});
@@ -211,6 +212,18 @@ function App() {
                 businesses={businesses}
                 auth={auth}
                 setReviews={setReviews}
+              />
+            }
+          />
+        )}
+        {!!auth.admin === true && (
+          <Route
+            path="/createBusiness"
+            element={
+              <CreateBusiness
+                businesses={businesses}
+                setBusinesses={setBusinesses}
+                auth={auth}
               />
             }
           />
