@@ -19,7 +19,8 @@ const createTables = async () => {
   CREATE TABLE users(
       id UUID PRIMARY KEY,
       username VARCHAR(20) UNIQUE NOT NULL,
-      password VARCHAR(255) NOT NULL
+      password VARCHAR(255) NOT NULL,
+      admin BOOLEAN DEFAULT false
     );
   
   CREATE TABLE businesses(
@@ -48,10 +49,10 @@ const init = async () => {
   console.log("tables created");
 
   const [moe, lucy, ethyl, curly] = await Promise.all([
-    createUser({ username: "moe", password: "m_pw" }),
-    createUser({ username: "lucy", password: "l_pw" }),
-    createUser({ username: "ethyl", password: "e_pw" }),
-    createUser({ username: "curly", password: "c_pw" }),
+    createUser({ username: "moe", password: "m_pw", admin: false }),
+    createUser({ username: "lucy", password: "l_pw", admin: false }),
+    createUser({ username: "ethyl", password: "e_pw", admin: false }),
+    createUser({ username: "curly", password: "c_pw", admin: false }),
   ]);
   const users = await fetchUsers();
   console.log("FETCH USER :", users);

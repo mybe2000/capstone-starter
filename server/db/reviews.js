@@ -64,7 +64,7 @@ const fetchReviewsByBusinessId = async (businessId) => {
 };
 
 const deleteReview = async (id) => {
-  console.log(id);
+  
   try {
     const SQL = `DELETE FROM reviews WHERE id=$1 RETURNING *`;
     const result = await client.query(SQL, [id]);

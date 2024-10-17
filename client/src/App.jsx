@@ -147,6 +147,9 @@ function App() {
         ) : (
           <Link to="/login">Register/Login</Link>
         )}
+        {auth.admin === true && (
+          <Link to="/createBusiness">Add a business</Link>
+        )}
       </nav>
 
       {auth.id && <button onClick={logout}>Logout {auth.username}</button>}
@@ -216,7 +219,12 @@ function App() {
         <Route
           path="/me"
           element={
-            <Account auth={auth} reviews={reviews} setReviews={setReviews} />
+            <Account
+              auth={auth}
+              setAuth={setAuth}
+              reviews={reviews}
+              setReviews={setReviews}
+            />
           }
         />
 

@@ -28,7 +28,6 @@ router.post("/register", async (req, res, next) => {
 router.get("/me", isLoggedIn, (req, res, next) => {
   try {
     res.send(req.user);
-    console.log(req.user);
   } catch (ex) {
     next(ex);
   }

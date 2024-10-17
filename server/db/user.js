@@ -9,26 +9,27 @@ if (JWT === "shhh") {
   console.log("If deployed, set process.env.JWT to something other than shhh");
 }
 
-const createUser = async ({ username, password }) => {
+const createUser = async ({ username, password, admin }) => {
   if (!username && !password) {
     const error = Error("username and password required!");
     error.status = 401;
     throw error;
   }
   const SQL = `
-    INSERT INTO users(id, username, password) VALUES($1, $2, $3) RETURNING *
+    INSERT INTO users(id, username, password, admin) VALUES($1, $2, $3, $4) RETURNING *
   `;
   const response = await client.query(SQL, [
     uuid.v4(),
     username,
     await bcrypt.hash(password, 5),
+    admin,
   ]);
   return response.rows[0];
 };
 
 const getUserById = async (id) => {
   try {
-    const SQL = `SELECT id, username FROM users WHERE id=$1`;
+    const SQL = `SELECT id, username, admin FROM users WHERE id=$1`;
     const user = await client.query(SQL, [id]);
     return user.rows[0];
   } catch (error) {
@@ -47,7 +48,7 @@ const findUserWithToken = async (token) => {
     throw error;
   }
   const SQL = `
-    SELECT id, username FROM users WHERE id=$1;
+    SELECT id, username, admin FROM users WHERE id=$1;
   `;
   const response = await client.query(SQL, [id]);
   if (!response.rows.length) {
@@ -60,7 +61,7 @@ const findUserWithToken = async (token) => {
 
 const fetchUsers = async () => {
   const SQL = `
-    SELECT id, username FROM users;
+    SELECT id, username, admin FROM users;
   `;
   const response = await client.query(SQL);
   return response.rows;
@@ -68,7 +69,7 @@ const fetchUsers = async () => {
 
 const authenticate = async ({ username, password }) => {
   const SQL = `
-    SELECT id, username, password FROM users WHERE username=$1;
+    SELECT id, username, password, admin FROM users WHERE username=$1;
   `;
   const response = await client.query(SQL, [username]);
   if (
@@ -83,10 +84,22 @@ const authenticate = async ({ username, password }) => {
   return { token };
 };
 
+const setAdmin = async (admin, id) => {
+  try {
+    const SQL = `UPDATE users SET admin = $1 WHERE id = $2 RETURNING *`;
+    const result = await client.query(SQL, [admin, id]);
+    return result.rows.length > 0 ? result.rows[0] : null;
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 module.exports = {
   createUser,
   getUserById,
   findUserWithToken,
   fetchUsers,
   authenticate,
+  setAdmin,
 };

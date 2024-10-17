@@ -2,14 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
-function Account({ auth, setReviews, reviews }) {
+function Account({ auth, setAuth, setReviews, reviews }) {
   const myReviews = reviews.filter((review) => review?.userid === auth.id);
 
   const [editingReviewId, setEditingReviewId] = useState(null);
   const [updatedComments, setUpdatedComments] = useState("");
   const [updatedRating, setUpdatedRating] = useState("");
-
-  const [adminAcc, setAdminAcc] = useState({});
 
   const makeAdmin = async (id) => {
     try {
@@ -19,7 +17,7 @@ function Account({ auth, setReviews, reviews }) {
         })
         .then((data) => {
           console.log(data.data);
-          setAdminAcc(data.data);
+          setAuth(data.data);
         })
         .catch((err) => console.log(err));
     } catch (error) {
@@ -27,7 +25,6 @@ function Account({ auth, setReviews, reviews }) {
       alert("Failed to promote user to admin");
     }
   };
-  console.log(adminAcc);
 
   const handleEdit = (review) => {
     setEditingReviewId(review.id);
@@ -79,7 +76,7 @@ function Account({ auth, setReviews, reviews }) {
       ) : (
         ""
       )}
-      {adminAcc?.admin === true && (
+      {auth?.admin === true && (
         <p>You can now add, edit, and delete businesses</p>
       )}
       <p>My reviews:</p>

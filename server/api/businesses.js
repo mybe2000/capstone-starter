@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { fetchBusinesses, getBusinessById } = require("../db");
+const { fetchBusinesses, getBusinessById, createBusiness } = require("../db");
 
 router.get("/", async (req, res, next) => {
   try {
@@ -18,6 +18,16 @@ router.get("/:id", async (req, res) => {
     res.send(result);
   } catch (error) {
     res.send(error);
+  }
+});
+
+router.post("/", async (req, res) => {
+  try {
+    const result = await createBusiness(req.body);
+    console.log(result);
+    res.send(result);
+  } catch (error) {
+    console.log(error);
   }
 });
 
