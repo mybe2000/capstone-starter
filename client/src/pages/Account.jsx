@@ -9,6 +9,8 @@ function Account({ auth, setReviews, reviews }) {
   const [updatedComments, setUpdatedComments] = useState("");
   const [updatedRating, setUpdatedRating] = useState("");
 
+  const [adminAcc, setAdminAcc] = useState({});
+
   const makeAdmin = async (id) => {
     try {
       const response = await axios
@@ -17,6 +19,7 @@ function Account({ auth, setReviews, reviews }) {
         })
         .then((data) => {
           console.log(data.data);
+          setAdminAcc(data.data);
         })
         .catch((err) => console.log(err));
     } catch (error) {
@@ -24,6 +27,7 @@ function Account({ auth, setReviews, reviews }) {
       alert("Failed to promote user to admin");
     }
   };
+  console.log(adminAcc);
 
   const handleEdit = (review) => {
     setEditingReviewId(review.id);
@@ -70,8 +74,13 @@ function Account({ auth, setReviews, reviews }) {
     <div>
       {auth.id && <h2 className="username">{auth.username}</h2>}
 
-      {auth.username === "lucy" && (
+      {auth.username === "lucy" ? (
         <button onClick={() => makeAdmin(auth.id)}>Admin</button>
+      ) : (
+        ""
+      )}
+      {adminAcc?.admin === true && (
+        <p>You can now add, edit, and delete businesses</p>
       )}
       <p>My reviews:</p>
       {myReviews?.length === 0 ? (
