@@ -10,12 +10,10 @@ function SingleBusiness({ auth, reviews }) {
   useEffect(() => {
     const getBusiness = async () => {
       try {
-        await axios(`/api/businesses/${id}`)
-          .then((data) => {
-            console.log(data.data);
-            setBusiness(data.data);
-          })
-          .catch((err) => console.log(err));
+        const response = await axios(`/api/businesses/${id}`);
+
+        console.log(response.data);
+        setBusiness(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -37,7 +35,11 @@ function SingleBusiness({ auth, reviews }) {
     <div className="business" key={business?.id}>
       <h2 className="singleBusinessName">{business?.businessname}</h2>
       <div className="imageBusiness">
-        <img src={business?.imageurl} className="images" />
+        <img
+          src={business?.imageurl}
+          className="images"
+          alt={business?.businessname}
+        />
       </div>
 
       <div className="ratingsBox">

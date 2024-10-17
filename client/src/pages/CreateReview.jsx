@@ -12,13 +12,18 @@ const CreateReview = ({ auth, businesses, setReviews }) => {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    axios(`/api/businesses/${businessId}`)
-      .then((data) => {
-        console.log(data.data);
-        setBusinessToReview(data.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+    const fetchBusiness = async () => {
+      try {
+        axios(`/api/businesses/${businessId}`).then((data) => {
+          console.log(data.data);
+          setBusinessToReview(data.data);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchBusiness();
+  }, [businessId]);
 
   const handleSearch = (e) => {
     const searchResult = businesses.find((business) =>
@@ -33,7 +38,7 @@ const CreateReview = ({ auth, businesses, setReviews }) => {
 
     const newReview = {
       userId: auth.id,
-      businessId: businessId || businessToReview.id,
+      businessId: businessToReview.id,
       comments,
       rating,
     };
@@ -43,15 +48,13 @@ const CreateReview = ({ auth, businesses, setReviews }) => {
       return;
     }
     try {
-      const response = await axios
-        .post("/api/reviews", newReview)
-        .then((data) => {
-          console.log(data.data);
-          setReviews((reviews) => [...reviews, data.data]);
-          setSubmitted(true);
-          document.getElementById("reviewForm").reset();
-          setBusinessToReview("");
-        });
+      const response = await axios.post("/api/reviews", newReview);
+
+      console.log(response.data);
+      setReviews((reviews) => [...reviews, response.data]);
+      setSubmitted(true);
+      document.getElementById("reviewForm").reset();
+      setBusinessToReview("");
     } catch (error) {
       console.log(error);
     }
