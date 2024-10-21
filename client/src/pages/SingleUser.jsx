@@ -2,6 +2,7 @@ import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+axios.defaults.baseURL = import.meta.env.VITE_DATABASE_URL;
 
 function SingleUser({ reviews, auth }) {
   const { id } = useParams();
