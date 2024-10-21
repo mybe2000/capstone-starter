@@ -14,7 +14,7 @@ const CreateReview = ({ auth, businesses, setReviews }) => {
   useEffect(() => {
     const fetchBusiness = async () => {
       try {
-        axios(`/api/businesses/${businessId}`).then((data) => {
+        await axios(`/api/businesses/${businessId}`).then((data) => {
           console.log(data.data);
           setBusinessToReview(data.data);
         });
