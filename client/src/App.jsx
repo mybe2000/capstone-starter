@@ -11,7 +11,9 @@ import SingleUser from "./pages/SingleUser";
 import SingleBusiness from "./pages/SingleBusiness";
 import Account from "./pages/Account";
 import CreateBusiness from "./pages/CreateBusiness";
-axios.defaults.baseURL = import.meta.env.DATABASE_URL;
+axios.defaults.baseURL = import.meta.env.VITE_DATABASE_URL;
+
+console.log(import.meta.env);
 
 function App() {
   const [auth, setAuth] = useState({});
