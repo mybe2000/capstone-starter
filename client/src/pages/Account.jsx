@@ -12,7 +12,7 @@ function Account({ auth, setAuth, setReviews, reviews }) {
   const makeAdmin = async (id) => {
     try {
       const response = await axios
-        .patch(`http://localhost:3000/api/users/${id}`, {
+        .patch(`api/users/${id}`, {
           admin: true,
         })
         .then((data) => {
@@ -35,7 +35,7 @@ function Account({ auth, setAuth, setReviews, reviews }) {
 
   const handleUpdate = async (id) => {
     try {
-      await axios.patch(`http://localhost:3000/api/reviews/${id}`, {
+      await axios.patch(`/api/reviews/${id}`, {
         comments: updatedComments,
         rating: updatedRating,
       });
@@ -52,7 +52,7 @@ function Account({ auth, setAuth, setReviews, reviews }) {
   const handleDelete = async (id) => {
     try {
       await axios
-        .delete(`http://localhost:3000/api/reviews/${id}`)
+        .delete(`/api/reviews/${id}`)
         .then((data) => {
           console.log(data);
         })

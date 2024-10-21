@@ -13,8 +13,6 @@ import Account from "./pages/Account";
 import CreateBusiness from "./pages/CreateBusiness";
 axios.defaults.baseURL = import.meta.env.VITE_DATABASE_URL;
 
-console.log(import.meta.env);
-
 function App() {
   const [auth, setAuth] = useState({});
   const [users, setUsers] = useState([]);
@@ -123,7 +121,7 @@ function App() {
   const removeAdmin = async (id) => {
     try {
       await axios
-        .patch(`http://localhost:3000/api/users/${id}`, {
+        .patch(`/api/users/${id}`, {
           admin: false,
         })
         .then((data) => {
