@@ -81,6 +81,14 @@ nav {
   border-radius: 20px;
 }
 
+.businessToReview {
+  color: rgb(27, 160, 217);
+  background-color: rgb(205, 232, 255);
+  border: 2px solid black;
+  padding: 10px;
+  text-align: center;
+}
+
 .singleBusinessName,
 .username {
   text-align: center;
