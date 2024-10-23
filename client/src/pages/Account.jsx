@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+axios.defaults.baseURL = import.meta.env.VITE_DATABASE_URL;
 
 function Account({ auth, setAuth, setReviews, reviews }) {
   const myReviews = reviews.filter((review) => review?.userid === auth.id);

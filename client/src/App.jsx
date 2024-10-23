@@ -26,7 +26,7 @@ function App() {
   useEffect(() => {
     const getUsers = async () => {
       try {
-        await axios("/api/users")
+        await axios(`/api/users`)
           .then((data) => {
             console.log(data.data);
             setUsers(data.data);
@@ -42,7 +42,7 @@ function App() {
   useEffect(() => {
     const getBusinesses = async () => {
       try {
-        await axios("/api/businesses")
+        await axios(`/api/businesses`)
           .then((data) => {
             console.log(data.data);
             setBusinesses(data.data);
@@ -58,7 +58,7 @@ function App() {
   useEffect(() => {
     const getReviews = async () => {
       try {
-        await axios("/api/reviews")
+        await axios(`/api/reviews`)
           .then((data) => {
             console.log(data.data);
             setReviews(data.data);
