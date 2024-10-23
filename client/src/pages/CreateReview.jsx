@@ -30,7 +30,7 @@ const CreateReview = ({ auth, businesses, setReviews }) => {
       business.businessname.toLowerCase().includes(e.target.value.toLowerCase())
     );
     setBusinessToReview(searchResult);
-    // setSubmitted(false);
+    setSubmitted(false);
   };
 
   const handleSubmit = async (e) => {
@@ -76,7 +76,7 @@ const CreateReview = ({ auth, businesses, setReviews }) => {
         </label>
         <h3>
           Create a review for:
-          <p className='businessToReview'>
+          <p className="businessToReview">
             {businessId || businessToReview
               ? businessToReview.businessname
               : ""}
