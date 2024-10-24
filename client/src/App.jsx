@@ -75,11 +75,14 @@ function App() {
   const attemptLoginWithToken = async () => {
     const token = window.localStorage.getItem("token");
     if (token) {
-      const response = await fetch(`/api/auth/me`, {
-        headers: {
-          authorization: token,
-        },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_DATABASE_URL}/api/auth/me`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
       const json = await response.json();
       if (response.ok) {
         setAuth(json);

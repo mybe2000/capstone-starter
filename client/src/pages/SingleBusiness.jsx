@@ -5,7 +5,6 @@ axios.defaults.baseURL = import.meta.env.VITE_DATABASE_URL;
 
 function SingleBusiness({ auth, reviews }) {
   const { id } = useParams();
-
   const [business, setBusiness] = useState(null);
 
   useEffect(() => {
