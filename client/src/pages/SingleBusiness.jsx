@@ -5,7 +5,7 @@ axios.defaults.baseURL = import.meta.env.VITE_DATABASE_URL;
 
 function SingleBusiness({ auth, reviews }) {
   const { id } = useParams();
-  console.log(id);
+
   const [business, setBusiness] = useState(null);
 
   useEffect(() => {
@@ -21,9 +21,10 @@ function SingleBusiness({ auth, reviews }) {
     };
     getBusiness();
   }, [id]);
+  console.log(reviews);
 
-  const businessReviews = reviews.filter(
-    (review) => review.businessid === business?.id
+  const businessReviews = reviews?.filter(
+    (review) => review?.businessid === business?.id
   );
 
   const averageScore =
@@ -44,7 +45,7 @@ function SingleBusiness({ auth, reviews }) {
       </div>
 
       <div className="ratingsBox">
-        <h4>Average score: {avgScore}</h4>
+        <h4>Average rating: {avgScore}</h4>
         <p>Number of reviews: {businessReviews.length}</p>
       </div>
       {auth.id && (

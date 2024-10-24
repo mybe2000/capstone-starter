@@ -78,7 +78,7 @@ function Account({ auth, setAuth, setReviews, reviews }) {
         ""
       )}
       {auth?.admin === true && (
-        <p>You can now add, edit, and delete businesses</p>
+        <p>You can now add a business. Click on the link in the Navigation!</p>
       )}
       <p>My reviews:</p>
       {myReviews?.length === 0 ? (

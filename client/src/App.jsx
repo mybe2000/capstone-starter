@@ -54,6 +54,7 @@ function App() {
     };
     getBusinesses();
   }, []);
+  console.log(businesses);
 
   useEffect(() => {
     const getReviews = async () => {

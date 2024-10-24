@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function BusinessCardList({ businesses, reviews }) {
+  console.log(businesses);
   return (
     <div>
       {businesses.map((business) => (

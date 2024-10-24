@@ -4,7 +4,9 @@ import { useParams } from "react-router-dom";
 axios.defaults.baseURL = import.meta.env.VITE_DATABASE_URL;
 
 const CreateReview = ({ auth, businesses, setReviews }) => {
+  console.log(auth.id);
   const { businessId } = useParams();
+  console.log(businessId);
   const [comments, setComments] = useState(null);
   const [rating, setRating] = useState(null);
 
@@ -43,6 +45,7 @@ const CreateReview = ({ auth, businesses, setReviews }) => {
       comments,
       rating,
     };
+    console.log(newReview);
 
     if (!rating) {
       alert("Please provide a star-rating");
@@ -50,12 +53,15 @@ const CreateReview = ({ auth, businesses, setReviews }) => {
     }
     try {
       const response = await axios.post("/api/reviews", newReview);
-
       console.log(response.data);
-      setReviews((reviews) => [...reviews, response.data]);
-      setSubmitted(true);
-      document.getElementById("reviewForm").reset();
-      setBusinessToReview("");
+      if (response.data) {
+        const newReviews = await axios(`/api/reviews`);
+        console.log(newReviews.data);
+        setReviews(newReviews.data);
+        setSubmitted(true);
+        document.getElementById("reviewForm").reset();
+        setBusinessToReview("");
+      }
     } catch (error) {
       console.log(error);
     }

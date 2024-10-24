@@ -2,7 +2,7 @@ const { client } = require("./client");
 const uuid = require("uuid");
 
 const createBusiness = async ({ businessname, imageUrl }) => {
-  if (!businessname && !rating) {
+  if (!businessname) {
     const error = Error("business name required!");
     error.status = 401;
     throw error;
