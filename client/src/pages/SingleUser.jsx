@@ -29,7 +29,7 @@ function SingleUser({ reviews, auth }) {
   return (
     <div>
       <h3>Username: </h3>
-      <h4>{user?.username}</h4>
+      <h4 style={{ color: "brown" }}>{user?.username}</h4>
       <h3>Reviews for: </h3>
       {userReviews?.length === 0 ? (
         <div>

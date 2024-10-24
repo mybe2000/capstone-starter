@@ -82,9 +82,10 @@ nav {
 }
 
 .businessToReview {
-  color: rgb(27, 160, 217);
+  color: rgb(11, 90, 124);
   background-color: rgb(205, 232, 255);
   border: 2px solid black;
+  font-weight: 700;
   padding: 10px;
   text-align: center;
 }
@@ -112,7 +113,6 @@ nav {
 }
 
 .home {
-  /* border: 2px solid blue; */
   border-radius: 5px;
   padding: 20px;
   background-color: rgb(135, 135, 174);

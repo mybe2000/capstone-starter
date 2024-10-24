@@ -21,7 +21,7 @@ function CreateBusiness({ auth, businesses, setBusinesses }) {
       const response = await axios.post("/api/businesses", newBusiness);
       console.log(response.data);
       setBusinesses((businesses) => [...businesses, response.data]);
-      // setNewBusiness({ businessname: "", imageUrl: "" });
+      setNewBusiness({ businessname: "", imageUrl: "" });
       document.getElementById("addBusinessForm").reset();
     } catch (error) {
       console.log("Error:", error);

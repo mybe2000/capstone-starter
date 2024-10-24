@@ -45,7 +45,10 @@ function SingleBusiness({ auth, reviews }) {
       </div>
 
       <div className="ratingsBox">
-        <h4>Average rating: {avgScore}</h4>
+        <h4>
+          Average rating:{" "}
+          {avgScore === "NaN" ? <p>No ratings yet</p> : avgScore}
+        </h4>
         <p>Number of reviews: {businessReviews.length}</p>
       </div>
       {auth.id && (

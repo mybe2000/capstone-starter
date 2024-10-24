@@ -4,9 +4,8 @@ import { useParams } from "react-router-dom";
 axios.defaults.baseURL = import.meta.env.VITE_DATABASE_URL;
 
 const CreateReview = ({ auth, businesses, setReviews }) => {
-  console.log(auth.id);
   const { businessId } = useParams();
-  console.log(businessId);
+
   const [comments, setComments] = useState(null);
   const [rating, setRating] = useState(null);
 
@@ -45,7 +44,6 @@ const CreateReview = ({ auth, businesses, setReviews }) => {
       comments,
       rating,
     };
-    console.log(newReview);
 
     if (!rating) {
       alert("Please provide a star-rating");
@@ -77,18 +75,15 @@ const CreateReview = ({ auth, businesses, setReviews }) => {
   return (
     <div>
       <form onSubmit={handleSubmit} id="reviewForm">
+        <h3>Create a review for:</h3>
         <label>
-          Search for a business:
+          Search business
           <input type="text" name="business" onChange={handleSearch} />
         </label>
-        <h3>
-          Create a review for:
-          <p className="businessToReview">
-            {businessId || businessToReview
-              ? businessToReview.businessname
-              : ""}
-          </p>
-        </h3>
+        <p className="businessToReview">
+          {businessId || businessToReview ? businessToReview.businessname : ""}
+        </p>
+        <p>Comments:</p>
         <textarea
           name="comments"
           rows="8"
@@ -117,7 +112,7 @@ const CreateReview = ({ auth, businesses, setReviews }) => {
           <input type="radio" value="5" name="rating" onChange={handleRating} />{" "}
           5 ⭐⭐⭐⭐⭐
         </label>
-        {submitted && <p>Review submitted!</p>}
+        {submitted && <p>Review submitted! Pick another business to review</p>}
 
         {businessToReview && <button>Submit</button>}
       </form>
