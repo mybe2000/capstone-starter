@@ -6,10 +6,11 @@ function BusinessCardList({ businesses, reviews }) {
   return (
     <div>
       {businesses.map((business) => (
-        <div key={business.id} className="businessLinksBox">
+        <div key={business.id} className="businessCardList">
           <Link to={`/business/${business.id}`} className="businessLinks">
-            <div className="businessRating">
+            <div className="businessCard">
               <h3>{business.businessname} </h3>
+              <img src={business.imageurl} />
             </div>
             <p>
               Number of reviews:
