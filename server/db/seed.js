@@ -64,7 +64,7 @@ const init = async () => {
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8P7xTejhoWd1JAiMBgWSC7_SnJ87UszQm0g&s",
     }),
     createBusiness({
-      businessname: "ShoeStore SW",
+      businessname: "NS shoes",
       imageUrl:
         "https://arktura.com/wp-content/uploads/2020/05/Arktura-Vapor-Trail-Feature-Shoe-Store-Las-VegasNV_Web_1-1-scaled.jpg",
     }),
@@ -72,6 +72,11 @@ const init = async () => {
       businessname: "Craig's Coffee",
       imageUrl:
         "https://verileet.com/wp-content/uploads/2020/12/Coffee-Shop-main-Image-1236x800.jpg",
+    }),
+    createBusiness({
+      businessname: "Ike's Furnitures",
+      imageUrl:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-JEMxayddNNoIMlkg4vDL6Km89_mlKbNWyg&s",
     }),
   ]);
   const businesses = await fetchBusinesses();

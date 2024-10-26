@@ -50,10 +50,9 @@ nav {
 
 .businessCardList,
 .usersBox {
-  /* display: flex;
-  flex-direction: column; */
-  border: 1px solid black;
-  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   margin: 20px;
 }
 
@@ -62,6 +61,10 @@ nav {
   text-decoration: none;
   color: rgb(40, 11, 203);
   font-family: fantasy;
+}
+
+.businessLinks img {
+  width: 300px;
 }
 
 .business {

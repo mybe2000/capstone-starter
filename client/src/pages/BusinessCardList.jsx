@@ -2,11 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function BusinessCardList({ businesses, reviews }) {
-  console.log(businesses);
   return (
-    <div>
+    <div className="businessCardList">
       {businesses.map((business) => (
-        <div key={business.id} className="businessCardList">
+        <div key={business.id}>
           <Link to={`/business/${business.id}`} className="businessLinks">
             <div className="businessCard">
               <h3>{business.businessname} </h3>
