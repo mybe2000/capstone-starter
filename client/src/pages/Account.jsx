@@ -12,7 +12,7 @@ function Account({ auth, setAuth, setReviews, reviews }) {
 
   const makeAdmin = async (id) => {
     try {
-      const response = await axios
+      await axios
         .patch(`api/users/${id}`, {
           admin: true,
         })
@@ -40,7 +40,7 @@ function Account({ auth, setAuth, setReviews, reviews }) {
         comments: updatedComments,
         rating: updatedRating,
       });
-      const result = await axios.get(`/api/reviews`);
+      const result = await axios(`/api/reviews`);
       setReviews(result.data);
       setEditingReviewId(null);
       setUpdatedComments("");
