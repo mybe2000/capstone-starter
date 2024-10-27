@@ -93,23 +93,27 @@ function App() {
   };
 
   const authAction = async (credentials, mode) => {
-    const response = await fetch(
-      `${import.meta.env.VITE_DATABASE_URL}/api/auth/${mode}`,
-      {
-        method: "POST",
-        body: JSON.stringify(credentials),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_DATABASE_URL}/api/auth/${mode}`,
+        {
+          method: "POST",
+          body: JSON.stringify(credentials),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-    const json = await response.json();
-    if (response.ok) {
-      window.localStorage.setItem("token", json.token);
-      attemptLoginWithToken();
-    } else {
-      throw json;
+      const json = await response.json();
+      if (response.ok) {
+        window.localStorage.setItem("token", json.token);
+        attemptLoginWithToken();
+      } else {
+        throw json;
+      }
+    } catch (error) {
+      console.log("Authentication failed", error);
     }
   };
 

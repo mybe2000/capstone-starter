@@ -73,6 +73,11 @@ const init = async () => {
       imageUrl:
         "https://verileet.com/wp-content/uploads/2020/12/Coffee-Shop-main-Image-1236x800.jpg",
     }),
+    createBusiness({
+      businessname: "Ike's Furnitures",
+      imageUrl:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-JEMxayddNNoIMlkg4vDL6Km89_mlKbNWyg&s",
+    }),
   ]);
   const businesses = await fetchBusinesses();
   console.log("fetch businesses", businesses);

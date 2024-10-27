@@ -13,7 +13,7 @@ const Businesses = ({ businesses, reviews }) => {
   };
 
   return (
-    <div>
+    <div className='businesses'>
       <h2>{businesses.length} Businesses</h2>
       <p>
         Search for a business:
