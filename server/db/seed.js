@@ -64,7 +64,7 @@ const init = async () => {
         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8P7xTejhoWd1JAiMBgWSC7_SnJ87UszQm0g&s",
     }),
     createBusiness({
-      businessname: "ShoeStore SW",
+      businessname: "SW Shoestore",
       imageUrl:
         "https://arktura.com/wp-content/uploads/2020/05/Arktura-Vapor-Trail-Feature-Shoe-Store-Las-VegasNV_Web_1-1-scaled.jpg",
     }),
