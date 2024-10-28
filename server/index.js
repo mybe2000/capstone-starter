@@ -15,11 +15,7 @@ app.use(express.json());
 //   res.sendFile(`${__dirname}/index.html`);
 // });
 
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-  })
-);
+app.use(cors());
 
 app.use("/api", require("./api"));
 
