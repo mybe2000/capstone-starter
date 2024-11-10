@@ -132,3 +132,8 @@ nav {
   padding: 20px;
   background-color: rgb(135, 135, 174);
 }
+
+.deleteBtn {
+  color: red;
+  margin-right: 10px;
+}

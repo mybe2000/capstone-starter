@@ -3,9 +3,12 @@ import axios from "axios";
 import { useParams, Link } from "react-router-dom";
 axios.defaults.baseURL = import.meta.env.VITE_DATABASE_URL;
 
-function SingleBusiness({ auth, reviews }) {
+function SingleBusiness({ auth, reviews, setBusinesses }) {
   const { id } = useParams();
+  console.log(id);
+
   const [business, setBusiness] = useState(null);
+  console.log(auth);
 
   useEffect(() => {
     const getBusiness = async () => {
@@ -32,6 +35,17 @@ function SingleBusiness({ auth, reviews }) {
 
   const avgScore = averageScore.toFixed(1);
 
+  const handleDelete = async (id) => {
+    try {
+      await axios
+        .delete(`/api/businesses/${id}`)
+        .then((data) => console.log("business deleted", data))
+        .catch((err) => console.log(err));
+    } catch (error) {
+      console.log("error deleting business", error);
+    }
+  };
+
   return (
     <div className="business" key={business?.id}>
       <h2 className="singleBusinessName">{business?.businessname}</h2>
@@ -50,6 +64,11 @@ function SingleBusiness({ auth, reviews }) {
         </h4>
         <p>Number of reviews: {businessReviews.length}</p>
       </div>
+      {auth.username === "lucy" && (
+        <button className="deleteBtn" onClick={() => handleDelete(id)}>
+          Delete business
+        </button>
+      )}
       {auth.id && (
         <Link to={`/createReview/${business?.id}`}>Write a review</Link>
       )}

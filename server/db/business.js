@@ -30,4 +30,19 @@ const getBusinessById = async (id) => {
   }
 };
 
-module.exports = { createBusiness, fetchBusinesses, getBusinessById };
+const deleteBusiness = async (id) => {
+  try {
+    const SQL = `DELETE FROM businesses WHERE id=$1 RETURNING *`;
+    const response = await client.query(SQL, [id]);
+    return response.rows;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = {
+  createBusiness,
+  fetchBusinesses,
+  getBusinessById,
+  deleteBusiness,
+};
