@@ -181,7 +181,9 @@ function App() {
         />
         <Route
           path="/businesses"
-          element={<Businesses businesses={businesses} reviews={reviews} />}
+          element={
+            <Businesses businesses={businesses} reviews={reviews} auth={auth} />
+          }
         />
         <Route
           path="/users"
@@ -198,6 +200,7 @@ function App() {
           element={
             <SingleBusiness
               businesses={businesses}
+              setBusinesses={setBusinesses}
               auth={auth}
               reviews={reviews}
               users={users}

@@ -1,8 +1,7 @@
 import { useState } from "react";
 import BusinessCardList from "./BusinessCardList";
 
-const Businesses = ({ businesses, reviews }) => {
-  console.log(businesses);
+const Businesses = ({ businesses, reviews, auth }) => {
   const [foundBusiness, setFoundBusiness] = useState(businesses);
 
   const handleSearch = (e) => {
@@ -13,7 +12,7 @@ const Businesses = ({ businesses, reviews }) => {
   };
 
   return (
-    <div className='businesses'>
+    <div className="businesses">
       <h2>{businesses.length} Businesses</h2>
       <p>
         Search for a business:
@@ -21,7 +20,11 @@ const Businesses = ({ businesses, reviews }) => {
       </p>
 
       <p>Click on a business to see their reviews</p>
-      <BusinessCardList businesses={foundBusiness} reviews={reviews} />
+      <BusinessCardList
+        businesses={foundBusiness}
+        reviews={reviews}
+        auth={auth}
+      />
     </div>
   );
 };

@@ -37,6 +37,7 @@ router.post("/", async (req, res) => {
 });
 
 router.delete("/:id", async (req, res, next) => {
+  console.log("delete called");
   try {
     const result = await deleteBusiness(req.params.id);
     res.send({ message: "Business deleted successfully", id: result });

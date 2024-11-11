@@ -35,16 +35,38 @@ function SingleBusiness({ auth, reviews, setBusinesses }) {
 
   const avgScore = averageScore.toFixed(1);
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (businessId) => {
     try {
       await axios
-        .delete(`/api/businesses/${id}`)
+        .delete(`/api/businesses/${businessId}`)
         .then((data) => console.log("business deleted", data))
         .catch((err) => console.log(err));
+
+      const result = await axios(`/api/businesses`).then((data) => {
+        console.log(data.data);
+        setBusinesses(data.data);
+      });
     } catch (error) {
       console.log("error deleting business", error);
     }
   };
+  // const handleDelete = async (id) => {
+  //   try {
+  //     await axios
+  //       .delete(`/api/reviews/${id}`)
+  //       .then((data) => {
+  //         console.log(data);
+  //       })
+  //       .catch((err) => console.log(err));
+
+  //     const result = await axios(`/api/reviews`).then((data) => {
+  //       console.log(data.data);
+  //       setReviews(data.data);
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <div className="business" key={business?.id}>
@@ -69,9 +91,11 @@ function SingleBusiness({ auth, reviews, setBusinesses }) {
           Delete business
         </button>
       )}
+
       {auth.id && (
         <Link to={`/createReview/${business?.id}`}>Write a review</Link>
       )}
+
       {!auth.id && <Link to={"/login"}>Log in to submit a review</Link>}
       {businessReviews.map((review) => (
         <div key={review?.id} className="businessReviews">
