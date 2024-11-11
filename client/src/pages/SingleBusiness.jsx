@@ -5,10 +5,8 @@ axios.defaults.baseURL = import.meta.env.VITE_DATABASE_URL;
 
 function SingleBusiness({ auth, reviews, setBusinesses }) {
   const { id } = useParams();
-  console.log(id);
 
   const [business, setBusiness] = useState(null);
-  console.log(auth);
 
   useEffect(() => {
     const getBusiness = async () => {
@@ -50,23 +48,6 @@ function SingleBusiness({ auth, reviews, setBusinesses }) {
       console.log("error deleting business", error);
     }
   };
-  // const handleDelete = async (id) => {
-  //   try {
-  //     await axios
-  //       .delete(`/api/reviews/${id}`)
-  //       .then((data) => {
-  //         console.log(data);
-  //       })
-  //       .catch((err) => console.log(err));
-
-  //     const result = await axios(`/api/reviews`).then((data) => {
-  //       console.log(data.data);
-  //       setReviews(data.data);
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   return (
     <div className="business" key={business?.id}>
