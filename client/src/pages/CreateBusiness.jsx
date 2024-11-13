@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 axios.defaults.baseURL = import.meta.env.VITE_DATABASE_URL;
 
 function CreateBusiness({ auth, businesses, setBusinesses }) {
-  console.log(auth);
-  console.log(businesses);
+  const navigate = useNavigate();
+
   const [newBusiness, setNewBusiness] = useState({
     businessname: "",
     imageUrl: "",
@@ -22,7 +23,9 @@ function CreateBusiness({ auth, businesses, setBusinesses }) {
       console.log(response.data);
       setBusinesses((businesses) => [...businesses, response.data]);
       setNewBusiness({ businessname: "", imageUrl: "" });
+      alert("Business successfully created");
       document.getElementById("addBusinessForm").reset();
+      navigate("/businesses");
     } catch (error) {
       console.log("Error:", error);
     }

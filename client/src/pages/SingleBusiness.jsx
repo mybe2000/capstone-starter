@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 axios.defaults.baseURL = import.meta.env.VITE_DATABASE_URL;
 
 function SingleBusiness({ auth, reviews, setBusinesses }) {
   const { id } = useParams();
-
+  const navigate = useNavigate();
   const [business, setBusiness] = useState(null);
 
   useEffect(() => {
@@ -40,9 +40,10 @@ function SingleBusiness({ auth, reviews, setBusinesses }) {
         .then((data) => console.log("business deleted", data))
         .catch((err) => console.log(err));
 
-      const result = await axios(`/api/businesses`).then((data) => {
+      await axios(`/api/businesses`).then((data) => {
         console.log(data.data);
         setBusinesses(data.data);
+        navigate("/businesses");
       });
     } catch (error) {
       console.log("error deleting business", error);
